@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+       
+
+        :root {
+            --bg: rgb(255, 255, 255);
+            --bg-accent: rgb(43, 43, 43);
+            --text: rgb(255, 255, 255);
+            --color: rgb(173, 173, 173);
+            --color-transparent: rgba(172, 172, 172, 0.15);
+            --accent: rgb(86, 86, 86);
+            --accent-transparent: rgba(86, 86, 86, 0.5);
+            --btn-active: rgba(0, 0, 0, 0);
+        }
+
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Source Code Pro', monospace;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--color);
+            text-decoration: none;
+            border-bottom: 0.1em solid var(--color);
+        }
+
+        a:hover {
+            color: var(--color);
+            text-decoration: none;
+            border-bottom: 0.1em solid var(--color);
+        }
+
+        button {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1em;
+            color: var(--text);
+            background: var(--accent-transparent);
+            border: none;
+            padding: 1em;
+            margin-top: 0.5em;
+        }
+
+        button:hover {
+            background: var(--color-transparent);
+        }
+
+        button:active {
+            background: var(--btn-active);
+        }
+
+        @media only screen and (min-width: 600px) {
+            .grid_container {
+                display: grid;
+                padding: 1em;
+                grid-gap: 1em;
+
+                width: calc(100vw - 3em);
+                grid-template-columns: 50% 50%;
+                grid-template-areas:
+                    "image audio";
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .grid_container {
+                display: grid;
+                padding: 1em;
+                grid-gap: 1em;
+
+                width: calc(100vw - 2em);
+                grid-template-columns: 100%;
+                grid-template-areas:
+                    "image"
+                    "audio";
+            }
+        }
+
+        /* png2wav wav2png text */
+        .title_text {
+            color: var(--color);
+            margin-bottom: 0.5em;
+            font-size: 1.25em;
+        }
+
+
+        .canvas_container {
+            display: inline-block;
+        }
+
+        .canvas_container .bg_text {
+            position: relative;
+        }
+
+        .canvas_container .bg_text:after {
+            position: absolute;
+            font-size: 1.4em;
+            width: calc(100% - 3rem);
+            height: calc(17rem - 3rem);
+            border: var(--color) dashed 0.5rem;
+            text-align: center;
+            padding: 13rem 1rem 1rem 1rem;
+        }
+
+        .canvas_container canvas {
+            height: 30em;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* png2wav */
+        #imageContainer {
+            grid-area: "image";
+            padding: 1em;
+            background: var(--bg-accent);
+            transition: 0.5s background-color;
+        }
+
+        #imageContainer .bg_text:after {
+            content: "Drag .wav here";
+
+        }
+
+        /* wav2png */
+        #audioContainer {
+            grid-area: "audio";
+            padding: 1em;
+            background: var(--bg-accent);
+            transition: 0.5s background-color;
+        }
+
+        #audioContainer .bg_text:after {
+            content: "Drag .png here";
+        }
+
+        #loading {
+            background: var(--accent-transparent);
+            position: fixed;
+            line-height: 100vh;
+            text-align: center;
+            font-size: 3em;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            transition: 0.5s opacity;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        #notchrome {
+            background: var(--accent-transparent);
+            position: fixed;
+            text-align: center;
+            font-size: 3em;
+            padding-top: 10vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .faq {
+            max-width: 50em;
+            padding: 1em 2em 1em 2em;
+            border-bottom: var(--accent-transparent) solid 1px;
+        }
+
+        .faq p {
+            text-indent: 1em;
+            margin-left: 1em;
+        }
+
+        h2 {
+            padding: 1em 0 0.5em 0;
+        }
+
+        .changelog {
+            max-width: 50em;
+            padding: 1em 2em 1em 2em;
+            opacity: 0.75;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 20em;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            padding: 1em;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        .block {
+            background-color: var(--bg-accent);
+            padding: 1em;
+            margin: 1rem 0 0 1rem;
+            float: left;
+        }
+
+        /* nothing can be to the right of this */
+        .hbox {
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* TITLE */
+        #title {
+            word-wrap: break-word;
+        }
+
+        .subtext {
+            font-size: 0.75em;
+            opacity: 0.5;
+        }
+
+        #madewithlove {
+            opacity: 0.9;
+        }
+
+        #madewithlove li::after {
+            content: " | ";
+        }
+
+        #madewithlove li:last-child:after {
+            content: "";
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <canvas width="3000" height="500" id="imgRenderingCanvasLeft" hidden></canvas>
+    <div class="grid_container">
+        <div id="imageContainer">
+            <div id="imgDropHandler">
+                <div class="title_text">
+                    wav > png:
+                   
+                    <input type="file" id="wavFileInput">
+                </div>
+                <div class="canvas_container">
+                    <div class="bg_text"></div>
+                    <canvas width="3000" height="500" id="audioDisplay"></canvas>
+                </div>
+                <button onclick="downloadChannel('left', 'channel', leftChannelCanvas)">Download .png file</button>
+            </div>
+
+        </div>
+
+        <div id="audioContainer">
+            <div id="audioDropHandler">
+                <div class="title_text">
+                    png > wav:
+                    
+                    <input type="file" id="pngFileInput">
+                </div>
+                <div class="canvas_container">
+                    <div class="bg_text"></div>
+                    <canvas width="3000" height="500" id="pngDisplay"></canvas>
+                </div>
+                <button onclick="downloadAudio();">Download .wav file</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+    <script>
+        // if (!window.chrome && !(navigator.userAgent.indexOf("Firefox") > 0)) {
+        //     notchrome.style.display = "block";
+        // }
+        audioContainer.ondragover = audioContainer.ondragenter = function (evt) {
+            evt.preventDefault();
+            audioContainer.style.backgroundColor = "var(--accent)";
+        }
+        audioContainer.ondragleave = function (evt) {
+            evt.preventDefault();
+            audioContainer.style.backgroundColor = "var(--bg-accent)";
+        }
+
+        imgDropHandler.ondragover = imgDropHandler.ondragenter = function (evt) {
+            evt.preventDefault();
+            imageContainer.style.backgroundColor = "var(--accent)";
+        };
+        imgDropHandler.ondragleave = function (evt) {
+            evt.preventDefault();
+            imageContainer.style.backgroundColor = "var(--bg-accent)";
+        }
+        // Handles the input file element
+        class hackedFileThing {
+            constructor() {
+                this.dataTransfer;
+            }
+            preventDefault() {
+                console.log("File chosen; not dropped. No need to prevent default");
+            };
+        }
+        function handleFiles() {
+            var fileList = new hackedFileThing;
+            fileList.dataTransfer = this;
+            console.log(fileList.dataTransfer);
+            fileInput(fileList);
+        }
+
+        // Handles the drop zone
+        imgDropHandler.ondrop = audioContainer.ondrop = fileInput = function (evt) {
+            //restore colors
+            audioContainer.style.backgroundColor = "var(--bg-accent)";
+            imageContainer.style.backgroundColor = "var(--bg-accent)";
+            loading.style.opacity = "1";
+            evt.preventDefault();
+
+            let file = evt.dataTransfer.files[0];
+            let reader = new FileReader();
+            if (evt.dataTransfer.files.length > 0) {
+                if (file.name.toLowerCase().includes(".png") || file.name.toLowerCase().includes(".jpg") || file.name.toLowerCase().includes(".jpeg")) {
+                    reader.readAsDataURL(file);
+                    reader.onload = function (e2) {
+                        // Start PNG Process
+                        img2audio(e2.target.result);
+                    }
+                } else if (file.name.includes(".wav")) {
+                    reader.readAsArrayBuffer(file);
+                    reader.onload = function (e2) {
+                        // Start WAV Process
+                        audio2img(e2.target.result);
+                    }
+                } else {
+                    console.error("FILE FORMAT INVALID");
+                    loading.style.opacity = "0";
+                }
+            } else {
+                console.error("no files were dragged in. did you try to drag a link in?");
+                loading.style.opacity = "0";
+            }
+
+        };
+
+        const wavInput = document.getElementById("wavFileInput");
+        wavInput.addEventListener("change", handleFiles, false);
+
+        const pngInput = document.getElementById("pngFileInput");
+        pngInput.addEventListener("change", handleFiles, false);
+
+        function clamp(num, min, max) {
+            return num <= min ? min : num >= max ? max : num;
+        }
+        let leftChannelCanvas = document.getElementById("imgRenderingCanvasLeft");
+        var leftCtx = leftChannelCanvas.getContext("2d");
+
+        var audioCanvas = document.getElementById("audioDisplay");
+        var ctx = audioCanvas.getContext("2d");
+
+
+        var pngCanvas = document.getElementById("pngDisplay");
+        var pngContext = pngCanvas.getContext("2d");
+
+        const audioCtx = new AudioContext({
+            sampleRate: 44100,
+        });
+
+        let buffer = null;
+        let leftChannelAudio = new Array();
+
+        const audio2img = (undecodedAudio) => {
+            audioCtx.decodeAudioData(undecodedAudio, function (data) {
+                // success
+                buffer = data;
+                let leftChannelPixels = new Array();
+                var channelSelector = document.getElementsByName('channel');
+                let selectedChannel = 0;
+                for (i = 0; i < channelSelector.length; i++) {
+                    if (channelSelector[i].checked) {
+                        selectedChannel = i;
+                    }
+                }
+                console.log(selectedChannel);
+                console.log("Number Of Channels: " + buffer.numberOfChannels);
+                if (selectedChannel > buffer.numberOfChannels - 1) {
+                    selectedChannel = 0;
+                    console.error("this audio file does not have a right channel. defaulting to left");
+                }
+                let bufL = buffer.getChannelData(selectedChannel);
+                // let buf = (buffer.getChannelData(0) + buffer.getChannelData(1))/ 2; 
+                for (let i = 0; i < buffer.length; i++) {
+                    leftChannelPixels.push(((clamp(bufL[i], -1, 1) + 1) * 0.5) * 768); // 
+                    leftChannelAudio.push(bufL[i]);
+                }
+                // console.log(stride.value);
+                buildImage(leftChannelPixels, 3000, ctx);
+                buildImage(leftChannelPixels, 3000, leftCtx);
+                loading.style.opacity = "0";
+            }, function () {
+                // error
+                console.error("COULDN'T CONVERT AUDIO TO IMAGE. CORRECT FORMAT?");
+            });
+        }
+
+        let link = document.createElement("a");
+        function buildImage(audioArray, stride, context) {
+            let imgHeight = audioArray.length / stride;
+            let imageData = context.createImageData(stride, imgHeight);
+            let index = 0;
+            for (let y = 0; y < imgHeight; y++) {
+                for (let x = 0; x < stride; x++) {
+                    imageData.data[4 * stride * y + 4 * x + 0] = clamp(audioArray[index], 0, 255);
+                    imageData.data[4 * stride * y + 4 * x + 1] = clamp(audioArray[index] - 256, 0, 255);
+                    imageData.data[4 * stride * y + 4 * x + 2] = clamp(audioArray[index] - 512, 0, 255);
+                    imageData.data[4 * stride * y + 4 * x + 3] = 255
+                    index++;
+                }
+            }
+            // resize canvas
+            // the main canvas should just be a display
+            context.canvas.width = stride;
+            context.canvas.height = imgHeight;
+            context.putImageData(imageData, 0, 0);
+        }
+        function downloadChannel(filename, channel, currentCanvas) {
+            link.download = filename + "_" + channel + ".png";
+            currentCanvas.toBlob(function (blob) {
+                link.href = URL.createObjectURL(blob);
+                link.click();
+            }, "image/png");
+        }
+
+        const SAMPLE_RATE = 44100;
+        const BITRATE = 16;
+        const N_CHANNELS = 1;
+        const WAV_HEADER_SIZE = 44; // 44 bytes
+
+        function build_wav_header(buf, audio_length) {
+            // RIFF
+
+            return buf;
+        }
+
+        function write_wav_file(samples) {
+            let buffer = new ArrayBuffer(WAV_HEADER_SIZE + samples.length * 2);
+            let data = new DataView(buffer);
+
+            data.setUint8(0, 'R'.charCodeAt(0));
+            data.setUint8(1, 'I'.charCodeAt(0));
+            data.setUint8(2, 'F'.charCodeAt(0));
+            data.setUint8(3, 'F'.charCodeAt(0));
+            data.setUint32(4, 36 + samples.length * N_CHANNELS, true);
+            // WAV
+            data.setUint8(8, 'W'.charCodeAt(0));
+            data.setUint8(9, 'A'.charCodeAt(0));
+            data.setUint8(10, 'V'.charCodeAt(0));
+            data.setUint8(11, 'E'.charCodeAt(0));
+            // fmt
+            data.setUint8(12, 'f'.charCodeAt(0));
+            data.setUint8(13, 'm'.charCodeAt(0));
+            data.setUint8(14, 't'.charCodeAt(0));
+            data.setUint8(15, ' '.charCodeAt(0));
+            data.setUint32(16, 16, true);
+            data.setUint16(20, 1, true); // Audio format 1 = PCM
+            data.setUint16(22, N_CHANNELS, true);
+            data.setUint32(24, SAMPLE_RATE, true);
+            data.setUint32(28, SAMPLE_RATE * N_CHANNELS * BITRATE / 8, true);
+            data.setUint16(32, N_CHANNELS * BITRATE / 8, true);
+            data.setUint16(34, BITRATE, true);
+            data.setUint8(36, 'd'.charCodeAt(0));
+            data.setUint8(37, 'a'.charCodeAt(0));
+            data.setUint8(38, 't'.charCodeAt(0));
+            data.setUint8(39, 'a'.charCodeAt(0));
+            data.setUint32(40, samples.length * 2 * N_CHANNELS, true);
+
+            console.log("samples length: ", samples.length);
+
+            for (let i = 0; i < samples.length; i++) {
+                let sample = samples[i];
+
+                data.setInt16(WAV_HEADER_SIZE + i * 2, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+            }
+            return data;
+        }
+
+        // AUDIO
+        let currentAudioBlob = null;
+        function exportWAV(type, floatAudioBuffer, audioLength) {
+            var channel = 0;
+            var i = 0, offset = 0, newbuffers = [];
+
+            newbuffers[channel] = new Float32Array(audioLength);
+            newbuffers[channel].set(floatAudioBuffer);
+
+            var interleaved = newbuffers[0];
+
+            var dataview = write_wav_file(floatAudioBuffer);
+            var audioBlob = new Blob([dataview], { type: type });
+            currentAudioBlob = audioBlob;
+            this.postMessage(audioBlob);
+        }
+
+        function downloadAudio() {
+            link.download = "audio.wav";
+            link.href = URL.createObjectURL(currentAudioBlob);
+            link.click();
+        }
+        const img2audio = (imgBlob) => {
+            var img = new Image();
+            img.src = imgBlob;
+            img.onload = function () {
+                console.log(img.width);
+                pngContext.canvas.width = img.width;
+                pngContext.canvas.height = img.height;
+                pngContext.drawImage(img, 0, 0);
+                let imageData = pngContext.getImageData(0, 0, img.width, img.height).data;
+                let newImageData = Array();
+                for (let i = 0; i < imageData.length; i += 4) {
+                    newImageData.push((((imageData[i] + imageData[i + 1] + imageData[i + 2]) / 768) - 0.5) * 2);
+                }
+                loading.style.opacity = "0";
+                exportWAV("audio/wav", newImageData, newImageData.length);
+            };
+        }
+    </script>
+
+</body>
+
+</html>
