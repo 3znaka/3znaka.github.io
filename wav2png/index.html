@@ -2,18 +2,33 @@
 <html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wav2png - audio to image converter</title>
+    <meta name="keywords" content="wav2png, audio2image, audio, image, converter, photoshop filters, datamoshing, joseph lyncheski, directmusic">
+    <!-- FACEBOOK -->
+    <meta property="og:title" content="wav2png - audio to image converter">
+    <meta property="og:site_name" content="wav2png - audio to image converter">
+    <meta property="og:url" content="https://directmusic.me/wav2png">
+    <meta property="og:description" content="convert audio to images for datamoshing audio fun.">
+    <!--<meta property="og:image" content="http://static.tumblr.com/b2cbxhu/X2Nofa3eh/directpresspic.jpg">-->
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@directofficial" />
+    <meta name="twitter:title" content="wav2png - audio to image converter" />
+    <meta name="twitter:description" content="convert audio to images for datamoshing audio fun." />
     <style>
-       
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500&display=swap');
 
         :root {
-            --bg: rgb(255, 255, 255);
-            --bg-accent: rgb(43, 43, 43);
+            --bg: rgb(0, 0, 0);
+            --bg-accent: rgb(43, 48, 55);
             --text: rgb(255, 255, 255);
-            --color: rgb(173, 173, 173);
-            --color-transparent: rgba(172, 172, 172, 0.15);
-            --accent: rgb(86, 86, 86);
-            --accent-transparent: rgba(86, 86, 86, 0.5);
+            --color: rgb(172, 192, 222);
+            --color-transparent: rgba(172, 192, 222, 0.15);
+            --accent: rgb(86, 96, 111);
+            --accent-transparent: rgba(86, 96, 111, 0.5);
             --btn-active: rgba(0, 0, 0, 0);
         }
 
@@ -269,7 +284,31 @@
 </head>
 
 <body>
-    
+    <div class="hbox">
+        <div class="block">
+            <span id="title">wav2png</span> <span class="subtext">&back</span>
+        </div>
+        <div class="block">
+            <ul id="madewithlove">
+                <li>made with ❤️ by</li>
+                <li><a href="https://twitter.com/directofficial" target="_blank">@directofficial</a></li>
+                <li><a href="https://minimeters.app" target="_blank"> get minimeters</a></li>
+                <li><a href="https://www.paypal.com/paypalme/directmusic" target="_blank"> donate on paypal</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="hbox">
+        <div class="block">
+            <span>choose channel:
+                <div class="tooltip">ⓘ <span class="tooltiptext">Pick the channel which will be converted to PNG.</span>
+                </div>
+            </span>
+            <input type="radio" id="left" name="channel" value="0" checked>
+            <label for="left">left</label>
+            <input type="radio" id="right" name="channel" value="1">
+            <label for="right">right</label>
+        </div>
+    </div>
 
     <canvas width="3000" height="500" id="imgRenderingCanvasLeft" hidden></canvas>
     <div class="grid_container">
@@ -277,7 +316,13 @@
             <div id="imgDropHandler">
                 <div class="title_text">
                     wav > png:
-                   
+                    <div class="tooltip">ⓘ <span class="tooltiptext">Drag a .wav file here to convert it to a PNG.
+                            <br><br>
+                            This takes the left channel of the .wav file and assigns color values based off each sample.
+                            <br><br>
+                            Download the PNG file and open it in an image editor. Then once you're finished editing it
+                            drag it back to this page!</span>
+                    </div>
                     <input type="file" id="wavFileInput">
                 </div>
                 <div class="canvas_container">
@@ -293,7 +338,13 @@
             <div id="audioDropHandler">
                 <div class="title_text">
                     png > wav:
-                    
+                    <div class="tooltip">ⓘ <span class="tooltiptext">Drag a .png file here to convert it to a .wav
+                            file. <br><br>
+                            This essentially converts the image back to audio. Process it how you please before dragging
+                            it into here.<br><br>
+                            You can drag any image into here but it may sound like trash or be extremely loud so be
+                            careful and turn down your speakers.</span>
+                    </div>
                     <input type="file" id="pngFileInput">
                 </div>
                 <div class="canvas_container">
@@ -305,9 +356,49 @@
         </div>
     </div>
 
+    <div id="loading">
+        Loading...
+    </div>
+    <!-- Displays if the user is using Safari :( -->
+    <div id="notchrome">
+        wav2png does not support your browser.<br>
+        <span style="font-size: 0.5em">if you think you're experiencing a glitch let me know on twitter
+            @directofficial</span>
+    </div>
 
-
-    
+    <div class="hbox">
+        <div class="faq">
+            <h2>what is this?</h2>
+            <p>wav2png is a way to convert audio files to png to allow for the use of various photo filters on audio.
+                this
+                page also allows you to convert back to audio for use in your songs and projects.</p>
+            <h2>what image filters work best?</h2>
+            <p>i love playing with photoshop's blur filters like field blur and radial blur!</p>
+            <h2>you're going to steal my song huh?</h2>
+            <p>no way. the conversion is performed in your browser. the site is completely static. you can download it
+                and use it offline.</p>
+            <h2>oh cool thanks</h2>
+            <p>no problem. if you use this in a tune i'd love to know about it. hit me up on twitter <a href="https://twitter.com/directofficial">(@directofficial)</a>. or if you feel generous donate on
+                paypal :)</p>
+            <h2>i have an idea!</h2>
+            <p>sweet. wav2png is open source and available on <a href="https://github.com/directmusic/wav2png">GitHub</a>. feel free to open an issue! or if you want
+                to code
+                it yourself i welcome pull requests.</p>
+        </div>
+        <div class="changelog">
+            <h2>changelog</h2>
+            <p>06/05/2022 - Fix regression: Audio speed is correct on systems running at sample rates other than 44.1khz.</p>
+            <p>06/03/2022 - better mobile layout, cleaned up some code, rewrote wav file handler, first public version
+                availble on <a href="https://github.com/directmusic/wav2png">GitHub</a>.</p>
+            <p>05/13/2021 - added file form input to (kinda) support mobile users</p>
+            <p>04/30/2021 - jpg to wav conversion support</p>
+            <p>04/27/2021 - channel selector addition + firefox support (kinda)</p>
+            <p>04/27/2021 - initial release</p>
+        </div>
+        <footer class="changelog">
+            made by joseph lyncheski.
+        </footer>
+    </div>
 
     <script>
         // if (!window.chrome && !(navigator.userAgent.indexOf("Firefox") > 0)) {
@@ -561,7 +652,6 @@
             };
         }
     </script>
-
 </body>
 
 </html>
