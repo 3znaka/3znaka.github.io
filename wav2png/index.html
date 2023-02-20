@@ -401,6 +401,7 @@
         </footer>
     </div>
 
+
     <script>
 
 
@@ -634,7 +635,7 @@
         }
 
         function downloadAudio() {
-            link.loop = "audio.wav";
+            link.download = "audio.wav";
 
             link.href = URL.createObjectURL(currentAudioBlob);
             link.click();
