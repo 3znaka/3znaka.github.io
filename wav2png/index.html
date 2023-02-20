@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -401,6 +402,8 @@
     </div>
 
     <script>
+
+
         // if (!window.chrome && !(navigator.userAgent.indexOf("Firefox") > 0)) {
         //     notchrome.style.display = "block";
         // }
@@ -491,7 +494,7 @@
         var pngContext = pngCanvas.getContext("2d");
 
         const audioCtx = new AudioContext({
-            sampleRate: 44100,
+            sampleRate: 10000,
         });
 
         let buffer = null;
@@ -522,8 +525,8 @@
                     leftChannelAudio.push(bufL[i]);
                 }
                 // console.log(stride.value);
-                buildImage(leftChannelPixels, 3000, ctx);
-                buildImage(leftChannelPixels, 3000, leftCtx);
+                buildImage(leftChannelPixels, 500, ctx);
+                buildImage(leftChannelPixels, 500, leftCtx);
                 loading.style.opacity = "0";
             }, function () {
                 // error
@@ -559,7 +562,7 @@
             }, "image/png");
         }
 
-        const SAMPLE_RATE = 44100;
+        const SAMPLE_RATE = 10000;
         const BITRATE = 16;
         const N_CHANNELS = 1;
         const WAV_HEADER_SIZE = 44; // 44 bytes
@@ -627,10 +630,12 @@
             var audioBlob = new Blob([dataview], { type: type });
             currentAudioBlob = audioBlob;
             this.postMessage(audioBlob);
+		
         }
 
         function downloadAudio() {
-            link.download = "audio.wav";
+            link.loop = "audio.wav";
+
             link.href = URL.createObjectURL(currentAudioBlob);
             link.click();
         }
