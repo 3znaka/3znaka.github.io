@@ -281,22 +281,52 @@
         li {
             display: inline-block;
         }
+
+.avatar-wrap {
+  width: 80px;
+  height: 80px;
+
+  margin: 20px;
+  float: left;
+}
     </style>
 </head>
 
-<body>
-    <div class="hbox">
-        <div class="block">
-            <span id="title">wav2png</span> <span class="subtext">&back</span>
-        </div>
-        <div class="block">
-            <ul id="madewithlove">
-                <li>made with ❤️ by</li>
-                <li><a href="https://twitter.com/directofficial" target="_blank">@directofficial</a></li>
-                <li><a href="https://minimeters.app" target="_blank"> get minimeters</a></li>
-                <li><a href="https://www.paypal.com/paypalme/directmusic" target="_blank"> donate on paypal</a></li>
-            </ul>
-        </div>
+<body><br><br>
+    <h1>RESIZE</h1>
+<form>
+    <input id = "dd" type="text" name="textie" >
+    </form>
+
+
+
+
+
+
+<input id="fileField" type="file" name="files[]" accept="image/*"/>
+
+
+
+
+<img id="img1" src="" style="max-width: 100%"/>
+
+
+<br><br>
+
+
+
+
+
+
+</body>
+</html> 
+
+
+
+
+
+
+
     </div>
     <div class="hbox">
         <div class="block">
@@ -357,6 +387,65 @@
         </div>
     </div>
 
+
+
+
+
+<label for="audioFileChooser">Upload an audio file: </label><br><br>
+<input  id="audioFileChooser" type="file" onchange="readFile(this.files);">
+
+
+<button onclick="stopper()">Click</button>
+
+
+
+
+
+<script>
+function stopper(file) {
+document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+            audios[i].pause();
+        }
+    }
+}, true);
+}
+</script>
+
+
+
+
+
+<script>
+
+	function readFile(files) {
+		var fileReader = new FileReader();
+			fileReader.readAsArrayBuffer(files[0]);
+			fileReader.onload = function(e) {
+				playAudioFile(e.target.result);
+				console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0].size/1024/1024*100))/100) + " MB)" ));
+			}
+	}
+	function playAudioFile(file) {
+		var context = new window.AudioContext();
+			context.decodeAudioData(file, function(buffer) {
+				var source = context.createBufferSource();
+					source.buffer = buffer;
+					source.loop = true;
+					source.connect(context.destination);
+					source.start(0); 
+			});
+	}
+	
+</script>
+
+
+
+
+
+
     <div id="loading">
         Loading...
     </div>
@@ -367,39 +456,10 @@
             @directofficial</span>
     </div>
 
-    <div class="hbox">
-        <div class="faq">
-            <h2>what is this?</h2>
-            <p>wav2png is a way to convert audio files to png to allow for the use of various photo filters on audio.
-                this
-                page also allows you to convert back to audio for use in your songs and projects.</p>
-            <h2>what image filters work best?</h2>
-            <p>i love playing with photoshop's blur filters like field blur and radial blur!</p>
-            <h2>you're going to steal my song huh?</h2>
-            <p>no way. the conversion is performed in your browser. the site is completely static. you can download it
-                and use it offline.</p>
-            <h2>oh cool thanks</h2>
-            <p>no problem. if you use this in a tune i'd love to know about it. hit me up on twitter <a href="https://twitter.com/directofficial">(@directofficial)</a>. or if you feel generous donate on
-                paypal :)</p>
-            <h2>i have an idea!</h2>
-            <p>sweet. wav2png is open source and available on <a href="https://github.com/directmusic/wav2png">GitHub</a>. feel free to open an issue! or if you want
-                to code
-                it yourself i welcome pull requests.</p>
-        </div>
-        <div class="changelog">
-            <h2>changelog</h2>
-            <p>06/05/2022 - Fix regression: Audio speed is correct on systems running at sample rates other than 44.1khz.</p>
-            <p>06/03/2022 - better mobile layout, cleaned up some code, rewrote wav file handler, first public version
-                availble on <a href="https://github.com/directmusic/wav2png">GitHub</a>.</p>
-            <p>05/13/2021 - added file form input to (kinda) support mobile users</p>
-            <p>04/30/2021 - jpg to wav conversion support</p>
-            <p>04/27/2021 - channel selector addition + firefox support (kinda)</p>
-            <p>04/27/2021 - initial release</p>
-        </div>
-        <footer class="changelog">
-            made by joseph lyncheski.
-        </footer>
-    </div>
+
+
+
+
 
 
     <script>
@@ -452,7 +512,7 @@
             let file = evt.dataTransfer.files[0];
             let reader = new FileReader();
             if (evt.dataTransfer.files.length > 0) {
-                if (file.name.toLowerCase().includes(".png") || file.name.toLowerCase().includes(".jpg") || file.name.toLowerCase().includes(".jpeg")) {
+                if (file.name.toLowerCase().includes(".png") || file.name.toLowerCase().includes(".jpg") || file.name.toLowerCase().includes(".jfif") || file.name.toLowerCase().includes(".jpeg")) {
                     reader.readAsDataURL(file);
                     reader.onload = function (e2) {
                         // Start PNG Process
@@ -657,7 +717,101 @@
                 exportWAV("audio/wav", newImageData, newImageData.length);
             };
         }
+
+
+
+
+
     </script>
+
+
+<script>
+const MAX_WIDTH = 800;
+const QUALITY = 1;
+
+const readPhoto = async (photo) => {
+  const canvas = document.createElement("canvas");
+  const img = document.createElement("img");
+
+  // create img element from File object
+  img.src = await new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.readAsDataURL(photo);
+  });
+
+  await new Promise((resolve) => {
+    img.onload = resolve;
+  });
+
+  // draw image in canvas element
+  canvas.width = img.width;
+  canvas.height = img.height;
+  canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  return canvas;
+};
+
+
+
+
+
+var scaleCanvas = (canvas, scale) => {
+  var scaledCanvas = document.createElement("canvas");
+  scaledCanvas.width = 500;
+   var numba = document.getElementById('dd').value;
+  scaledCanvas.height = numba;
+
+  scaledCanvas
+    .getContext("2d")
+    .drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+
+  return scaledCanvas;
+};
+
+const optimizePhoto = async (photo) => {
+  let canvas = await readPhoto(photo);
+
+  
+  while (canvas.width >= 2 * MAX_WIDTH) {
+    canvas = scaleCanvas(canvas, 0.5);
+  }
+
+  if (canvas.width > MAX_WIDTH) {
+    canvas = scaleCanvas(canvas, MAX_WIDTH / canvas.width);
+  }
+
+  return new Promise((resolve) => {
+    canvas.toBlob(resolve, "image/jpeg", QUALITY);
+  });
+};
+
+const input = document.getElementById("fileField");
+
+async function processReduce(photo) {
+  const resizedPhoto = await optimizePhoto(photo);
+  console.log(resizedPhoto);
+  
+  let reader = new FileReader();
+  reader.readAsDataURL(resizedPhoto); // converts the blob to base64 and calls onload
+
+  reader.onload = function () {
+    document.getElementById("img1").src = reader.result; // data url
+  };
+}
+
+input.addEventListener("change", function (e) {
+  processReduce(e.target.files[0]);
+});
+</script>
+
+
+
+
+
+
+
+
 </body>
 
 </html>
