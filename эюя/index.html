@@ -3,402 +3,95 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wav2png - audio to image converter</title>
-    <meta name="keywords" content="wav2png, audio2image, audio, image, converter, photoshop filters, datamoshing, joseph lyncheski, directmusic">
-    <!-- FACEBOOK -->
-    <meta property="og:title" content="wav2png - audio to image converter">
-    <meta property="og:site_name" content="wav2png - audio to image converter">
-    <meta property="og:url" content="https://directmusic.me/wav2png">
-    <meta property="og:description" content="convert audio to images for datamoshing audio fun.">
-    <!--<meta property="og:image" content="http://static.tumblr.com/b2cbxhu/X2Nofa3eh/directpresspic.jpg">-->
-    <!-- TWITTER -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@directofficial" />
-    <meta name="twitter:title" content="wav2png - audio to image converter" />
-    <meta name="twitter:description" content="convert audio to images for datamoshing audio fun." />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300;400;500&display=swap');
-
-        :root {
-            --bg: rgb(0, 0, 0);
-            --bg-accent: rgb(43, 48, 55);
-            --text: rgb(255, 255, 255);
-            --color: rgb(172, 192, 222);
-            --color-transparent: rgba(172, 192, 222, 0.15);
-            --accent: rgb(86, 96, 111);
-            --accent-transparent: rgba(86, 96, 111, 0.5);
-            --btn-active: rgba(0, 0, 0, 0);
-        }
-
-        * {
-            margin: 0;
-            padding: 0
-        }
-
-        body {
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Source Code Pro', monospace;
-            overflow-x: hidden;
-        }
-
-        a {
-            color: var(--color);
-            text-decoration: none;
-            border-bottom: 0.1em solid var(--color);
-        }
-
-        a:hover {
-            color: var(--color);
-            text-decoration: none;
-            border-bottom: 0.1em solid var(--color);
-        }
-
-        button {
-            font-family: 'Source Code Pro', monospace;
-            font-size: 1em;
-            color: var(--text);
-            background: var(--accent-transparent);
-            border: none;
-            padding: 1em;
-            margin-top: 0.5em;
-        }
-
-        button:hover {
-            background: var(--color-transparent);
-        }
-
-        button:active {
-            background: var(--btn-active);
-        }
-
-        @media only screen and (min-width: 600px) {
-            .grid_container {
-                display: grid;
-                padding: 1em;
-                grid-gap: 1em;
-
-                width: calc(100vw - 3em);
-                grid-template-columns: 50% 50%;
-                grid-template-areas:
-                    "image audio";
-            }
-        }
-
-        @media only screen and (max-width: 600px) {
-            .grid_container {
-                display: grid;
-                padding: 1em;
-                grid-gap: 1em;
-
-                width: calc(100vw - 2em);
-                grid-template-columns: 100%;
-                grid-template-areas:
-                    "image"
-                    "audio";
-            }
-        }
-
-        /* png2wav wav2png text */
-        .title_text {
-            color: var(--color);
-            margin-bottom: 0.5em;
-            font-size: 1.25em;
-        }
-
-
-        .canvas_container {
-            display: inline-block;
-        }
-
-        .canvas_container .bg_text {
-            position: relative;
-        }
-
-        .canvas_container .bg_text:after {
-            position: absolute;
-            font-size: 1.4em;
-            width: calc(100% - 3rem);
-            height: calc(17rem - 3rem);
-            border: var(--color) dashed 0.5rem;
-            text-align: center;
-            padding: 13rem 1rem 1rem 1rem;
-        }
-
-        .canvas_container canvas {
-            height: 30em;
-            width: 100%;
-            z-index: 1;
-            position: relative;
-        }
-
-        /* png2wav */
-        #imageContainer {
-            grid-area: "image";
-            padding: 1em;
-            background: var(--bg-accent);
-            transition: 0.5s background-color;
-        }
-
-        #imageContainer .bg_text:after {
-            content: "Drag .wav here";
-
-        }
-
-        /* wav2png */
-        #audioContainer {
-            grid-area: "audio";
-            padding: 1em;
-            background: var(--bg-accent);
-            transition: 0.5s background-color;
-        }
-
-        #audioContainer .bg_text:after {
-            content: "Drag .png here";
-        }
-
-        #loading {
-            background: var(--accent-transparent);
-            position: fixed;
-            line-height: 100vh;
-            text-align: center;
-            font-size: 3em;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            opacity: 0;
-            transition: 0.5s opacity;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        #notchrome {
-            background: var(--accent-transparent);
-            position: fixed;
-            text-align: center;
-            font-size: 3em;
-            padding-top: 10vh;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: none;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .faq {
-            max-width: 50em;
-            padding: 1em 2em 1em 2em;
-            border-bottom: var(--accent-transparent) solid 1px;
-        }
-
-        .faq p {
-            text-indent: 1em;
-            margin-left: 1em;
-        }
-
-        h2 {
-            padding: 1em 0 0.5em 0;
-        }
-
-        .changelog {
-            max-width: 50em;
-            padding: 1em 2em 1em 2em;
-            opacity: 0.75;
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 20em;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
-            border-radius: 6px;
-            padding: 1em;
-            position: absolute;
-            z-index: 10;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-        }
-
-        .block {
-            background-color: var(--bg-accent);
-            padding: 1em;
-            margin: 1rem 0 0 1rem;
-            float: left;
-        }
-
-        /* nothing can be to the right of this */
-        .hbox {
-            display: inline-block;
-            width: 100%;
-        }
-
-        /* TITLE */
-        #title {
-            word-wrap: break-word;
-        }
-
-        .subtext {
-            font-size: 0.75em;
-            opacity: 0.5;
-        }
-
-        #madewithlove {
-            opacity: 0.9;
-        }
-
-        #madewithlove li::after {
-            content: " | ";
-        }
-
-        #madewithlove li:last-child:after {
-            content: "";
-        }
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        li {
-            display: inline-block;
-        }
-
-.avatar-wrap {
-  width: 80px;
-  height: 80px;
-
-  margin: 20px;
-  float: left;
-}
-    </style>
+    
+    <title>ЭЮЯ</title>
+    
+    
 </head>
 
-<body><br><br>
-    <h1>RESIZE</h1>
-<form>
-    <input id = "dd" type="text" name="textie" >
-    </form>
+<body>
+
+<center>
+ <br> <br>
+ <img src="logo.gif" alt="ШАГ 1">
+ <h3>Стандарт печатных аудиотэгов от 3znaka</h3>
+ <br>
+ 
+ 
+<h1>1. Обрежь и выпрями тэг</h1>
+<h3>Это можно сделать с помощью программы вроде Doc Scanner</h3>
+ <img src="pic1.gif" alt="ШАГ 1">
+    <h1>2. Уменьши изображение под формат</h1>
+	<h3>В графическом редакторе измени<br>ширину обрезанного изображения на 500,<br>а высоту - на число, приложенное к тэгу</h3>
+	 <img src="pic2.gif" alt="ШАГ 2">
 
 
 
-
-
-
-<input id="fileField" type="file" name="files[]" accept="image/*"/>
-
-
-
-
-<img id="img1" src="" style="max-width: 100%"/>
-
-
-<br><br>
-
-
-
-
-
-
-</body>
-</html> 
-
-
-
-
-
-
-
-    </div>
-    <div class="hbox">
-        <div class="block">
-            <span>choose channel:
-                <div class="tooltip">ⓘ <span class="tooltiptext">Pick the channel which will be converted to PNG.</span>
-                </div>
-            </span>
-            <input type="radio" id="left" name="channel" value="0" checked>
-            <label for="left">left</label>
-            <input type="radio" id="right" name="channel" value="1">
-            <label for="right">right</label>
-        </div>
-    </div>
-
-    <canvas width="3000" height="500" id="imgRenderingCanvasLeft" hidden></canvas>
-    <div class="grid_container">
-        <div id="imageContainer">
-            <div id="imgDropHandler">
-                <div class="title_text">
-                    wav > png:
-                    <div class="tooltip">ⓘ <span class="tooltiptext">Drag a .wav file here to convert it to a PNG.
-                            <br><br>
-                            This takes the left channel of the .wav file and assigns color values based off each sample.
-                            <br><br>
-                            Download the PNG file and open it in an image editor. Then once you're finished editing it
-                            drag it back to this page!</span>
-                    </div>
-                    <input type="file" id="wavFileInput">
-                </div>
-                <div class="canvas_container">
-                    <div class="bg_text"></div>
-                    <canvas width="3000" height="500" id="audioDisplay"></canvas>
-                </div>
-                <button onclick="downloadChannel('left', 'channel', leftChannelCanvas)">Download .png file</button>
-            </div>
-
-        </div>
-
-        <div id="audioContainer">
+   <canvas width="1" height="1" id="imgRenderingCanvasLeft" hidden></canvas>
+   
+   
+   <div id="audioContainer">
             <div id="audioDropHandler">
                 <div class="title_text">
-                    png > wav:
-                    <div class="tooltip">ⓘ <span class="tooltiptext">Drag a .png file here to convert it to a .wav
-                            file. <br><br>
-                            This essentially converts the image back to audio. Process it how you please before dragging
-                            it into here.<br><br>
-                            You can drag any image into here but it may sound like trash or be extremely loud so be
-                            careful and turn down your speakers.</span>
-                    </div>
+                    
+                    <h1>3. Загрузи уменьшенное изображение</h1>
+					<h3>После этого нажми на "Скачать WAV"</h3>
                     <input type="file" id="pngFileInput">
                 </div>
                 <div class="canvas_container">
                     <div class="bg_text"></div>
-                    <canvas width="3000" height="500" id="pngDisplay"></canvas>
+                    <canvas width="1" height="1" id="pngDisplay"></canvas>
                 </div>
-                <button onclick="downloadAudio();">Download .wav file</button>
+                <button onclick="downloadAudio();">Скачать WAV</button>
             </div>
         </div>
     </div>
 
+    
 
 
 
 
-<label for="audioFileChooser">Upload an audio file: </label><br><br>
+
+<h1>4. Загрузи WAV для зацикленного воспроизведения</h1>
+<h3>Будет играть до тех пор, пока не перезагрузишь страницу</h3>
 <input  id="audioFileChooser" type="file" onchange="readFile(this.files);">
 
 
-<button onclick="stopper()">Click</button>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<h1>Создать свою картинку из звука:</h1>
+<div class="grid_container">
+        <div id="imageContainer">
+            <div id="imgDropHandler">
+                
+                   
+                    <input type="file" id="wavFileInput">
+               
+                <div class="canvas_container">
+                    <div class="bg_text"></div>
+                    <canvas width="1" height="1" id="audioDisplay"></canvas>
+                </div>
+                <button onclick="downloadChannel('left', 'channel', leftChannelCanvas)">Скачать PNG</button>
+            </div>
+
+        </div>
 
 
 
+
+
+   
+    
+
+    
+
+        
+    </div>
+	
+	</center>
+</body>
+</html> 
 
 
 <script>
@@ -447,13 +140,11 @@ document.addEventListener('play', function(e){
 
 
     <div id="loading">
-        Loading...
+       
     </div>
     <!-- Displays if the user is using Safari :( -->
     <div id="notchrome">
-        wav2png does not support your browser.<br>
-        <span style="font-size: 0.5em">if you think you're experiencing a glitch let me know on twitter
-            @directofficial</span>
+       
     </div>
 
 
@@ -726,7 +417,7 @@ document.addEventListener('play', function(e){
 
 
 <script>
-const MAX_WIDTH = 800;
+const MAX_WIDTH = 3000;
 const QUALITY = 1;
 
 const readPhoto = async (photo) => {
@@ -753,14 +444,14 @@ const readPhoto = async (photo) => {
 };
 
 
-
+var numba = document.getElementById('dd').value;
+  scaledCanvas.height = numba;
 
 
 var scaleCanvas = (canvas, scale) => {
   var scaledCanvas = document.createElement("canvas");
   scaledCanvas.width = 500;
-   var numba = document.getElementById('dd').value;
-  scaledCanvas.height = numba;
+   
 
   scaledCanvas
     .getContext("2d")
@@ -805,63 +496,6 @@ input.addEventListener("change", function (e) {
 });
 
 
-
-$(document).ready(function() {
-
-    $('#imageFile').change(function(evt) {
-
-        var files = evt.target.files;
-        var file = files[0];
-
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('preview').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-});
-
-function ResizeImage() {
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        var filesToUploads = document.getElementById('imageFile').files;
-        var file = filesToUploads[0];
-        if (file) {
-
-            var reader = new FileReader();
-            // Set the image once loaded into file reader
-            reader.onload = function(e) {
-
-                var img = document.createElement("img");
-                img.src = e.target.result;
-
-                var canvas = document.createElement("canvas");
-                var ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0);
-
-                var MAX_WIDTH = 512;
-                var MAX_HEIGHT = 60;
-                var width = 512;
-                var height = 50;
-
-               
-                canvas.width = width;
-                canvas.height = height;
-                var ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, width, height);
-
-                dataurl = canvas.toDataURL(file.type);
-                document.getElementById('output').src = dataurl;
-            }
-            reader.readAsDataURL(file);
-
-        }
-
-    } else {
-        alert('The File APIs are not fully supported in this browser.');
-    }
-}
 </script>
 
 
