@@ -1,4 +1,14 @@
 <head>
+<script>
+    function preloadImages() {
+      var images = document.getElementsByTagName('img');
+      for (var i = 0; i < images.length; i++) {
+        var img = new Image();
+        img.src = images[i].src;
+      }
+    }
+    window.onload = preloadImages;
+  </script>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ъыь.рф</title>
@@ -149,23 +159,16 @@ color: white;
     justify-content: center;
     align-items: center;
     height: 50vh;
-  }
-
-
-img {
-  max-width: 100%;
-  max-height: 100%;
 }
-  #center-image {
+
+#center-image {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-  }
+    width: 720px;
+    height: 360px;
+}
 
 
 
