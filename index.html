@@ -39,367 +39,6 @@
 
 
 
-body {
-  background-color: white;
-  opacity: 1;
-}
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-body {
-  animation: fade-in 1s;
-}
-
-
-
-
-
-
-
-
-
-
-
-#cf6_image {
-  margin:0 auto;
-  width:288;
-  height:72;
-  transition: background-image 0.4s ease-in-out;
-  background-image:url("lamb.gif");
-  position: fixed;
-  top: 40;
-  left: 0;
-  right: 0;
-}
-
-#rndt {
-  position: relative;
-  top: 50;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 20px;
-  font-family: Times New Roman, sans-serif;
-  
-}
-
-
-#slider-container3 {
-  position: fixed;
-  top: 80%;
-  left: center;
-  right: center;
-  
-}
-
-#cf6_image:hover {
-  background-image:url("lamb2.gif");
-}
-
-#logo {
-
-  justify-content: center;
-  align-items: center;
-  min-height: 0vh;
-  
-}
-#logo {
-  text-decoration: none;
-  color: inherit;
-  font-size: 60px;
-}
-
-#logo {
-  font-size: 30px;
-  line-height: 1.2;
-}
-
-#logo {
-  font-weight: 900;
-  text-align: center;
-  font-size: 90px;
-  font-family: Times New Roman, sans-serif;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #FFF, #000, #FFFF);
-  letter-spacing: 0px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  animation: shine 5s linear infinite;
-  position: relative;
-}
-
-@keyframes shine {
-  0% {
-    background-position-x: -500%;
-  }
-  100% {
-    background-position-x: 500%;
-  }
-}
-
-
-
-
-#logo {
-  min-height: 10vh;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#logo, #cf6_image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-}
-@keyframes shine {
-  0% {
-    background-position-x: -200%;
-  }
-  100% {
-    background-position-x: 200%;
-  }
-}
-
-#logo {
-  animation: shine 10s linear infinite;
-}
-
-
-.button {
-display: inline-block;
-margin: 5px;
-padding: 10px 10px;
-border: 2px solid black;
-background-color: white;
-color: black;
-font-family: "Times New Roman", Times, serif;
-font-size: 14px;
-text-align: center;
-text-decoration: none;
-}
-
-.button:hover,
-.button:active {
-background-color: black;
-color: white;
-}
-
- .button-container {
-
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        background-color: #fff;
-        padding: 10px 0;
-        box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-justify-content: space-between;
-    }
-.center-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-}
-
-#center-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 720px;
-    height: 360px;
-}
-@media only screen and (max-width: 768px) {
-#center-image {
-width: 100%;
-height: auto;
-top: 50%;
-left: 50%;
- transform: translate(-50%, -50%);
-}
-}
-
-button {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-  font-size: 24px; /* increase font size */
-}
-
-.play-button {
-  width: 60px; 
-  height: 60px; 
-  background-image: url("play.svg"); 
-  background-repeat: no-repeat;
-  background-size: 60px;
-  transition: opacity 0.2s ease-out;
-}
-
-.pause-button {
-  width: 60px; 
-  height: 60px; 
-  background-image: url("pause.svg"); 
-  background-repeat: no-repeat;
-  background-size: 60px;
-  transition: opacity 0.2s ease-out;
-}
-/* Container styles */
-.button-container2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom:150px;
-  position: fixed;
-  top: 70%;
-  left: 0;
-  right: 0;
-  
-  
- 
-}
-
-.play-button + .pause-button {
-  margin-left: 30px; /* adjust the value as needed */
-}
-
-.play-button:hover, .pause-button:hover,
-.play-button:active, .pause-button:active {
-  opacity: 0.5; /* adjust the opacity as needed */
-
-.volume-slider-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.volume-slider {
-  width: 100%;
-  height: 8px;
-  -webkit-appearance: none;
-  appearance: none;
-  background: #ddd;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  background: #333;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.volume-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: #333;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.volume-slider::-ms-thumb {
-  width: 16px;
-  height: 16px;
-  background: #333;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-@media (max-width: 500px) {
-  /* Make the buttons bigger */
-  button {
-    font-size: 24px;
-  }
-
-  /* Make the text bigger */
-  h1 {
-    font-size: 36px;
-  }
-}
-
-.slider-container2 {
-  width: 30%; /* adjust the width */
-  margin: 0 auto;
-}
-
-/* Slider styles */
-input[type="range"] {
-  width: 100%;
-  height: 30px; /* increase height */
-  -webkit-appearance: none;
-  background-color: #ccc;
-  border-radius: 10px;
-  outline: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 30px; /* increase size */
-  height: 30px; /* increase size */
-  background-color: #000;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-input[type="range"]::-moz-range-thumb {
-  width: 30px; /* increase size */
-  height: 30px; /* increase size */
-  background-color: #000;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-/* Center the page content */
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-h1 {
-  font-size: 36px; /* increase font size */
-}
-
-
-
-
-
-
-
-
-
-
 
 
 </style>
@@ -494,48 +133,298 @@ document.write(r_text[i]); </script>
 
 
 
-<div class="button-container2">
-		<button class="play-button" onclick="playRandomAudio()"></button>
-		<button class="pause-button" onclick="stopAudio()"></button>
-		
-		
-		
-
-	</div>
+<div class="container">
+  <div class="button-container2">
+    <button class="play-button" onclick="playRandomAudio()"></button>
+    <button class="pause-button" onclick="stopAudio()"></button>
 	<div id="slider-container3">
-	<input type="range" min="0" max="100" value="50" onchange="updateVolume(this.value)">
+    <input type="range" min="0" max="100" value="50" onchange="updateVolume(this.value)">
+  </div>
+  </div>
+
+  
 </div>
 
 <style>
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #4CAF50;
-  margin-top: -9px;
+
+body{
+    background-color:#fff;
+    opacity:1
 }
-input[type=range]::-moz-range-thumb {
-  border: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #4CAF50;
+@keyframes fade-in{
+    from{
+        opacity:0
+    }
+    to{
+        opacity:1
+    }
 }
-input[type=range]:focus {
-  outline: none;
+body{
+    animation:fade-in 1s
 }
-input[type=range]::-webkit-slider-runnable-track {
-  height: 4px;
-  background: #ddd;
-  border: none;
+#cf6_image{
+    margin:0 auto;
+    width:288;
+    height:72;
+    transition:background-image .4s ease-in-out;
+    background-image:url(lamb.gif);
+    position:fixed;
+    top:40;
+    left:0;
+    right:0
 }
-input[type=range]::-moz-range-track {
-  height: 4px;
-  background: #ddd;
-  border: none;
+#rndt{
+    position:relative;
+    top:50;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:20px;
+    font-family:Times New Roman,sans-serif
 }
+#slider-container3{
+    position:relative;
+    
+}
+#cf6_image:hover{
+    background-image:url(lamb2.gif)
+}
+@keyframes shine{
+    0%{
+        background-position-x:-500%
+    }
+    100%{
+        background-position-x:500%
+    }
+}
+body{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center
+}
+#cf6_image{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-shrink:0
+}
+@keyframes shine{
+    0%{
+        background-position-x:-200%
+    }
+    100%{
+        background-position-x:200%
+    }
+}
+.button{
+    display:inline-block;
+    margin:5px;
+    padding:10px 10px;
+    border:2px solid #000;
+    background-color:#fff;
+    color:#000;
+    font-family:"Times New Roman",Times,serif;
+    font-size:14px;
+    text-align:center;
+    text-decoration:none
+}
+.button:active,.button:hover{
+    background-color:#000;
+    color:#fff
+}
+.button-container{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    text-align:center;
+    background-color:#fff;
+    padding:10px 0;
+    box-shadow:0 -2px 10px rgba(0,0,0,.1);
+    justify-content:space-between
+}
+.center-image{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%)
+}
+.image-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:50vh
+}
+#center-image{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:720px;
+    height:360px
+}
+@media only screen and (max-width:768px){
+    #center-image{
+        width:100%;
+        height:auto;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%)
+    }
+}
+button{
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+    outline:0;
+    font-size:24px
+}
+
+
+
+.pause-button,.play-button{
+    width:30px;
+    height:30px;
+    background-repeat:no-repeat;
+    background-size:30px;
+    transition:opacity .2s ease-out;
+    margin-right:10px
+}
+.play-button{
+    background-image:url(play.svg)
+}
+.pause-button{
+    background-image:url(pause.svg)
+}
+#slider-container3{
+    margin-left:10px
+}
+.button-container2{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:150px;
+    position:fixed;
+    top:70%;
+    left:0;
+    right:0
+}
+.play-button+.pause-button{
+    margin-left:15px
+}
+
+
+
+@media (max-width:500px){
+    button{
+        font-size:24px
+    }
+}
+.slider-container2{
+    width:30%;
+    margin:0 auto
+}
+input[type=range]{
+    width:100%;
+    height:30px;
+    -webkit-appearance:none;
+    background-color:#ccc;
+    border-radius:10px;
+    outline:0
+}
+input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:30px;
+    height:30px;
+    background-color:#000;
+    border-radius:50%;
+    cursor:pointer
+}
+input[type=range]::-moz-range-thumb{
+    width:30px;
+    height:30px;
+    background-color:#000;
+    border-radius:50%;
+    cursor:pointer
+}
+body{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0
+}
+.container{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:150px;
+    position:fixed;
+    top:70%;
+    left:0;
+    right:0
+}
+.pause-button,.play-button{
+    width:30px;
+    height:30px;
+    background-repeat:no-repeat;
+    background-size:30px;
+    transition:opacity .2s ease-out;
+    margin-right:10px
+}
+.play-button{
+    background-image:url(play.svg)
+}
+.pause-button{
+    background-image:url(pause.svg)
+}
+
+.pause-button:hover, .play-button:hover,
+.pause-button:active, .play-button:active {
+    opacity: 0.5;
+}
+
+
+#slider-container3{
+    margin-left:10px
+}
+input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    border:none;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#fff;
+    margin-top:-9px
+	
+}
+input[type=range]::-moz-range-thumb{
+    border:none;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#fff
+}
+input[type=range]:focus{
+    outline:0
+}
+input[type=range]::-webkit-slider-runnable-track{
+    height:4px;
+    background:#ddd;
+    border:none
+}
+input[type=range]::-moz-range-track{
+    height:4px;
+    background:#ddd;
+    border:none
+}
+ 
+
+ 
 </style>
 
 
