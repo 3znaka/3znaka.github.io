@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<html>
+<head>
+	<title>Audio Player</title>
+	<link rel="stylesheet" href="audio-player.css">
+	<script src="audio-player.js"></script>
+</head>
+<body>
+	<h1>Audio Player</h1>
+	<div class="button-container">
+		<button class="play-button" onclick="playRandomAudio()"></button>
+		<button class="pause-button" onclick="stopAudio()"></button>
+	</div>
+	<div class="slider-container">
+		<input type="range" min="0" max="100" value="50" onchange="updateVolume(this.value)">
+	</div>
+</body>
+</html>

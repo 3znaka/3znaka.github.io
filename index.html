@@ -33,12 +33,68 @@
 <!-- /Yandex.Metrika counter -->
 </head>
 <style>
+
+
+
+
+
+
+body {
+  background-color: white;
+  opacity: 1;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+body {
+  animation: fade-in 1s;
+}
+
+
+
+
+
+
+
+
+
+
+
 #cf6_image {
   margin:0 auto;
   width:288;
   height:72;
   transition: background-image 0.4s ease-in-out;
   background-image:url("lamb.gif");
+  position: fixed;
+  top: 40;
+  left: 0;
+  right: 0;
+}
+
+#rndt {
+  position: relative;
+  top: 50;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 20px;
+  font-family: Times New Roman, sans-serif;
+  
+}
+
+
+#slider-container3 {
+  position: fixed;
+  top: 80%;
+  left: center;
+  right: center;
+  
 }
 
 #cf6_image:hover {
@@ -185,6 +241,164 @@ left: 50%;
 }
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  font-size: 24px; /* increase font size */
+}
+
+.play-button {
+  width: 60px; 
+  height: 60px; 
+  background-image: url("play.svg"); 
+  background-repeat: no-repeat;
+  background-size: 60px;
+  transition: opacity 0.2s ease-out;
+}
+
+.pause-button {
+  width: 60px; 
+  height: 60px; 
+  background-image: url("pause.svg"); 
+  background-repeat: no-repeat;
+  background-size: 60px;
+  transition: opacity 0.2s ease-out;
+}
+/* Container styles */
+.button-container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom:150px;
+  position: fixed;
+  top: 70%;
+  left: 0;
+  right: 0;
+  
+  
+ 
+}
+
+.play-button + .pause-button {
+  margin-left: 30px; /* adjust the value as needed */
+}
+
+.play-button:hover, .pause-button:hover,
+.play-button:active, .pause-button:active {
+  opacity: 0.5; /* adjust the opacity as needed */
+
+.volume-slider-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.volume-slider {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #333;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #333;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.volume-slider::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #333;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+@media (max-width: 500px) {
+  /* Make the buttons bigger */
+  button {
+    font-size: 24px;
+  }
+
+  /* Make the text bigger */
+  h1 {
+    font-size: 36px;
+  }
+}
+
+.slider-container2 {
+  width: 30%; /* adjust the width */
+  margin: 0 auto;
+}
+
+/* Slider styles */
+input[type="range"] {
+  width: 100%;
+  height: 30px; /* increase height */
+  -webkit-appearance: none;
+  background-color: #ccc;
+  border-radius: 10px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px; /* increase size */
+  height: 30px; /* increase size */
+  background-color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 30px; /* increase size */
+  height: 30px; /* increase size */
+  background-color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Center the page content */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  font-size: 36px; /* increase font size */
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -192,10 +406,17 @@ left: 50%;
 
 <body> 
 
+
+
+
+
 <br>
 
 
-<a href="index.html"><div id="cf6_image" class="shadow" onclick="window.location='index.html';"></div></a><br>
+<a href="index.html"><div id="cf6_image" class="shadow" onclick="window.location='index.html';">
+
+
+<div id="rndt">
 <SCRIPT LANGUAGE="JAVASCRIPT">
 <!-- 
 var r_text = new Array (); 
@@ -260,6 +481,9 @@ r_text[54] = "яшертыуиопасдфгчйклзхцвбнм";
 var i = Math.floor(r_text.length * Math.random()); 
 
 document.write(r_text[i]); </script>
+</div>
+
+</div></a><br>
 
 
 
@@ -268,6 +492,117 @@ document.write(r_text[i]); </script>
   <img src="same.jpg" alt="куда вы" id="center-image">
 </div>
 
+
+
+<div class="button-container2">
+		<button class="play-button" onclick="playRandomAudio()"></button>
+		<button class="pause-button" onclick="stopAudio()"></button>
+		
+		
+		
+
+	</div>
+	<div id="slider-container3">
+	<input type="range" min="0" max="100" value="50" onchange="updateVolume(this.value)">
+</div>
+
+<style>
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #4CAF50;
+  margin-top: -9px;
+}
+input[type=range]::-moz-range-thumb {
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #4CAF50;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #ddd;
+  border: none;
+}
+input[type=range]::-moz-range-track {
+  height: 4px;
+  background: #ddd;
+  border: none;
+}
+</style>
+
+
+
+
+	
+
+
+	<script>
+	// Define an array with the names of your audio files
+var audioFiles = ["music/n01.mp3", "music/n02.mp3", "music/n03.mp3", "music/n04.mp3", "music/n05.mp3", "music/n06.mp3", "music/n07.mp3", "music/n08.mp3", "music/n09.mp3", "music/n10.mp3"];
+
+// Keep track of the currently playing audio
+var currentAudio = null;
+
+// Function to get a random number between min and max
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to play a random audio file
+function playRandomAudio() {
+    // Stop any previously playing audio
+    stopAudio();
+
+    // Get a random audio file name from the array
+    var randomIndex = getRandomNumber(0, audioFiles.length - 1);
+    var randomAudioFile = audioFiles[randomIndex];
+
+    // Create a new Audio object with the random audio file
+    var audio = new Audio(randomAudioFile);
+
+    // Set the volume of the audio object to the value of the volume slider
+    audio.volume = document.getElementById("slider-container3").getElementsByTagName("input")[0].value / 100;
+
+    // Wait for the audio to load before setting the starting time
+    audio.addEventListener('loadedmetadata', function() {
+        // Check that the duration is a finite number before setting the starting time
+        if (isFinite(audio.duration)) {
+            // Set a random starting time for the audio file
+            var randomStartTime = getRandomNumber(0, audio.duration);
+            audio.currentTime = randomStartTime;
+        }
+        // Play the audio file
+        audio.play();
+    });
+
+    // Set the current audio to the new Audio object
+    currentAudio = audio;
+}
+
+// Function to stop any currently playing audio
+function stopAudio() {
+    if (currentAudio !== null) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+    }
+}
+
+// Function to update the volume of the audio
+function updateVolume(volume) {
+    if (currentAudio !== null) {
+        currentAudio.volume = volume / 100;
+    }
+}
+	</script>
 
 <div class="button-container">
     <a href="music/index.html" class="button">музыка</a>
