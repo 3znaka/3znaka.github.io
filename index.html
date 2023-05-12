@@ -134,12 +134,16 @@ document.write(r_text[i]); </script>
 
 
 <div class="container">
+
   <div class="button-container2">
     <button class="play-button" onclick="playRandomAudio()"></button>
     <button class="pause-button" onclick="stopAudio()"></button>
 	<div id="slider-container3">
     <input type="range" min="0" max="100" value="50" onchange="updateVolume(this.value)">
+	
+	
   </div>
+
   </div>
 
   
@@ -436,7 +440,7 @@ input[type=range]::-moz-range-track{
 	<script>
 	// Define an array with the names of your audio files
 var audioFiles = ["music/n01.mp3", "music/n02.mp3", "music/n03.mp3", "music/n04.mp3", "music/n05.mp3", "music/n06.mp3", "music/n07.mp3", "music/n08.mp3", "music/n09.mp3", "music/n10.mp3"];
-
+	
 // Keep track of the currently playing audio
 var currentAudio = null;
 
@@ -470,8 +474,11 @@ function playRandomAudio() {
         }
         // Play the audio file
         audio.play();
+		
+		
+		document.getElementById("audio-file-name").textContent = audioDisplayName;
     });
-
+ 
     // Set the current audio to the new Audio object
     currentAudio = audio;
 }
