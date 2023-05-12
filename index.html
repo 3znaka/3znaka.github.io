@@ -441,6 +441,18 @@ input[type=range]::-moz-range-track{
 	// Define an array with the names of your audio files
 var audioFiles = ["music/n01.mp3", "music/n02.mp3", "music/n03.mp3", "music/n04.mp3", "music/n05.mp3", "music/n06.mp3", "music/n07.mp3", "music/n08.mp3", "music/n09.mp3", "music/n10.mp3"];
 	
+	function preloadAudioFiles() {
+    for (var i = 0; i < audioFiles.length; i++) {
+        var audio = new Audio();
+        audio.src = audioFiles[i];
+        audio.load();
+    }
+}
+
+// Call the function to preload the audio files
+preloadAudioFiles();
+	
+	
 // Keep track of the currently playing audio
 var currentAudio = null;
 
@@ -476,7 +488,7 @@ function playRandomAudio() {
         audio.play();
 		
 		
-		document.getElementById("audio-file-name").textContent = audioDisplayName;
+		
     });
  
     // Set the current audio to the new Audio object
@@ -498,18 +510,6 @@ function updateVolume(volume) {
         currentAudio.volume = volume / 100;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	</script>
