@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 100%;
+            padding: 20px;
+        }
+        .image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+.button{
+    display:inline-block;
+    margin:5px;
+    padding:10px 10px;
+    border:2px solid #000;
+    background-color:#fff;
+    color:#000;
+    font-family:"Times New Roman",Times,serif;
+    font-size:20px;
+    text-align:center;
+    text-decoration:none
+}
+.button:active,.button:hover{
+    background-color:#000;
+    color:#fff
+}
+.button-container{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    text-align:center;
+    background-color:#fff;
+    padding:10px 0;
+    box-shadow:0 -2px 10px rgba(0,0,0,.1);
+    justify-content:space-between
+}
+.center-image{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%)
+}
+.image-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:50vh
+}
+#center-image{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:720px;
+    height:360px
+}
+@media only screen and (max-width:768px){
+    #center-image{
+        width:100%;
+        height:auto;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%)
+    }
+}
+button{
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+    outline:0;
+    font-size:24px
+}
+    </style>
+</head>
+<body>
+<br>
+    <div class="container">
+        <img class="image" src="pic.gif" alt="Изображение" ><br>
+        <div>
+            <h1>Danila Dodоnov</h1>
+<h2>-@ъыь.рф</h2>
+        </div>
+    </div>
+
+<div class="container">
+        <a href="../index.html" class="button"><b>назад</b></a>
+    </div>
+
+</body>
+</html>

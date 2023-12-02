@@ -5,11 +5,23 @@
 
     
     <title>ЭЮЯ</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 </head>
 <style>
-
+.container {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 100%;
+            padding: 20px;
+        }
+        .image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
 
 .bg_text::after {
   content: "";
@@ -51,10 +63,11 @@ button, input[type="button"], input[type="submit"] {
 	position: relative;
 }
 
+
 </style>
 <body>
 
-<center>
+<center><center>
  <br> <br>
  <a href="index.html"><img src="logo.gif" alt="лого"></a>
  <h3>Стандарт печатных аудиотэгов от <a href="https://ъыь.рф">3znaka</a></h3>
@@ -62,7 +75,7 @@ button, input[type="button"], input[type="submit"] {
   <br> <br>
 <h1>1. Обрежь и выпрями тэг</h1>
 <h3>Это можно сделать с помощью программы вроде Doc Scanner</h3>
- <img src="pic1.gif" alt="ШАГ 1">
+ <div class="image-container"><img src="pic1.jpg" alt="ШАГ 1" id="center-image"></div>
 
 
 
@@ -81,13 +94,13 @@ button, input[type="button"], input[type="submit"] {
 					
 					
 				
-                    <input type="file" hidden id="pngFileInput"><input id="imageset" type="file" onchange="readFileToScale(this.files);">
+                    <input type="file" hidden id="pngFileInput"><input id="imageset" type="file" onchange="readFileToScale(this.files);"><br><br>
 					<input type="text" id="scaleh" value="110">
                 </div><br><br>
                 <div class="canvas_container">
                     <div class="bg_text"></div>
                     <canvas width="1" height="1" id="pngDisplay"></canvas>
-                </div><br>
+                </div><br><br>
                 <button onclick="scale();">Скачать WAV</button>
             </div>
         </div>
@@ -137,7 +150,7 @@ function scale()
 <input  id="audioFileChooser" type="file" onchange="readFile(this.files);">
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <h1>Создать свою картинку из звука:</h1>
 <div class="grid_container">
@@ -627,7 +640,7 @@ input.addEventListener("change", function (e) {
 
 
 
-
+</center>
 
 
 <br><br><br><br><br><br><br>

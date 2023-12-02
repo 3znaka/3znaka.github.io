@@ -49,12 +49,49 @@
           max-width: none;
         }
       }
+	  .button{
+    display:inline-block;
+    margin:5px;
+    padding:10px 10px;
+    border:2px solid #000;
+    background-color:#fff;
+    color:#000;
+    font-family:"Times New Roman",Times,serif;
+    font-size:20px;
+    text-align:center;
+    text-decoration:none
+}
+.button:active,.button:hover{
+    background-color:#000;
+    color:#fff
+}
+.button-container{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    text-align:center;
+    background-color:#fff;
+    padding:10px 0;
+    box-shadow:0 -2px 10px rgba(0,0,0,.1);
+    justify-content:space-between
+}
+
+
+button{
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+    outline:0;
+    font-size:24px
+}
+   
     </style>
   </head>
   <body>
-    <h1> музыка</h1>
-	<center><img src="cc0.gif" alt="бесплатно" id="center-image"></center>
-		
+    <h1>музыка</h1>
+	<center><a href="https://creativecommons.org/public-domain/cc0/"><img src="cc0.gif" alt="бесплатно" id="center-image"></a></center><br>
+		<center><a href="https://www.youtube.com/channel/UCjdcGEtNZKZDpeY5cqmmNwA" class="button">также доступно на yt</button></a></center>
 	<br>
     <ul class="gallery">
       <li class="image-item">
@@ -140,9 +177,12 @@
 
 <br><br><center>
 <b>обратите внимание, что все работы</b><br>
-<b>распространяются по лицензии <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></b><br>
-<br><br><br>
-<br><a href="../index.html" style="color: rgb (200, 14, 100)"><b>назад</b></a>
+<b>распространяются по лицензии <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></b><br><br>
+
+
+<br><div class="container">
+        <a href="../index.html" class="button"><b>назад</b></a>
+    </div>
     <br><br><br><br><br><br>
 </center>
   </body>
