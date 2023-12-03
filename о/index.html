@@ -2,7 +2,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <script>
+        function getRandomImage() {
+            var images = ["pic1.gif", "pic2.gif", "pic3.gif", "pic4.gif", "pic5.gif", "pic6.gif", "pic7.gif"];
+            var randomIndex = Math.floor(Math.random() * images.length);
+            var randomImage = images[randomIndex];
+            document.getElementById("randomImage").src = randomImage;
+        }
+    </script>
     <style>
+	img {
+      max-width: 100%;
+      height: auto;
+    }
         .container {
             text-align: center;
             margin: 0 auto;
@@ -81,19 +93,20 @@ button{
 }
     </style>
 </head>
-<body>
-<br>
-    <div class="container">
-        <img class="image" src="pic.gif" alt="Изображение" ><br>
-        <div>
-            <h2>Danila Dodоnov</h2>
-<h3>-@ъыь.рф</h3>
-        </div>
-    </div>
+<body onload="getRandomImage()">
 
-<div class="container">
+    <div class="container">
+        <img id="randomImage" src="" alt="я"><br>
+        <div>
+            <h1>Danila Dodоnov</h1>
+<h2>📧<br>-@ъыь.рф</h2>
+        </div>
+		<div class="container">
         <a href="../index.html" class="button"><b>назад</b></a>
     </div>
+    </div>
+
+
 
 </body>
 </html>

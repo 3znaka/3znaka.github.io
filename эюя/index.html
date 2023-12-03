@@ -9,6 +9,10 @@
     
 </head>
 <style>
+ img {
+      max-width: 100%;
+      height: auto;
+    }
 .container {
             text-align: center;
             margin: 0 auto;
@@ -34,22 +38,7 @@
 }
 
 
-button, input[type="button"], input[type="submit"] { 
-   box-shadow:inset 0px 1px 0px 0px #fbafe3;
-	background:linear-gradient(to bottom, #ff5bb0 5%, #ef027d 100%);
-	background-color:#ff5bb0;
-	border-radius:6px;
-	border:1px solid #ee1eb5;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:25px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #c70067;
-} 
+
 
 .canvas_container {
 	display: inline-block;
@@ -62,6 +51,29 @@ button, input[type="button"], input[type="submit"] {
 	z-index: 1;
 	position: relative;
 }
+button{
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+    outline:0;
+    font-size:24px
+}
+.button{
+    display:inline-block;
+    margin:5px;
+    padding:10px 10px;
+    border:2px solid #000;
+    background-color:#fff;
+    color:#000;
+    font-family:"Times New Roman",Times,serif;
+    font-size:20px;
+    text-align:center;
+    text-decoration:none
+}
+.button:active,.button:hover{
+    background-color:#000;
+    color:#fff
+}
 
 
 </style>
@@ -73,9 +85,9 @@ button, input[type="button"], input[type="submit"] {
  <h3>Стандарт печатных аудиотэгов от <a href="https://ъыь.рф">3znaka</a></h3>
 
   <br> <br>
-<h1>1. Обрежь и выпрями тэг</h1>
+<h2>1. Обрежь и выпрями тэг</h2>
 <h3>Это можно сделать с помощью программы вроде Doc Scanner</h3>
- <div class="image-container"><img src="pic1.jpg" alt="ШАГ 1" id="center-image"></div>
+ <div class="image-container"><img src="pic1.gif" alt="ШАГ 1" id="center-image"></div>
 
 
 
@@ -87,7 +99,7 @@ button, input[type="button"], input[type="submit"] {
             <div id="audioDropHandler">
                 <div class="title_text">
                     
-                    <h1>2. Загрузи полученное изображение<br> и укажи ниже число, приложенное к тэгу</h1>
+                    <h2>2. Загрузи полученное изображение<br> и укажи ниже число, приложенное к тэгу</h2>
 					
 					<h3>После этого нажми на "Скачать WAV"</h3>
 					
@@ -101,7 +113,7 @@ button, input[type="button"], input[type="submit"] {
                     <div class="bg_text"></div>
                     <canvas width="1" height="1" id="pngDisplay"></canvas>
                 </div><br><br>
-                <button onclick="scale();">Скачать WAV</button>
+                <button onclick="scale();" class="button">Скачать WAV</button>
             </div>
         </div>
     </div>
@@ -145,14 +157,17 @@ function scale()
 
 
 
-<h1>3. Загрузи WAV для зацикленного воспроизведения</h1>
+<h2>3. Загрузи WAV для зацикленного воспроизведения</h2>
 <h3>Будет играть до тех пор, пока не перезагрузишь страницу</h3>
 <input  id="audioFileChooser" type="file" onchange="readFile(this.files);">
+<br><div class="container">
+        <a href="../index.html" class="button"><b>назад</b></a>
+    </div>
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<h1>Создать свою картинку из звука:</h1>
+<h2>Создать свою картинку из звука:</h2>
 <div class="grid_container">
         <div id="imageContainer">
             <div id="imgDropHandler">
@@ -161,13 +176,13 @@ function scale()
 
 
 
-                    <input type="file" id="wavFileInput"><br>
+                    <input type="file" id="wavFileInput"><br><br>
                
                 <div class="canvas_container">
                     <div class="bg_text"></div>
                     <canvas width="1" height="1" id="audioDisplay"></canvas>
                 </div><br><br>
-                <button onclick="downloadChannel('left', 'channel', leftChannelCanvas)">Скачать PNG</button>
+                <button onclick="downloadChannel('left', 'channel', leftChannelCanvas) class="button"" class="button">Скачать PNG</button>
 				<br><br><canvas hidden="true" id="scaledummy" width="10000" height="10000"></canvas>
             </div>
 
