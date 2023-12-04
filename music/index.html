@@ -4,6 +4,31 @@
     <title>музыка</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+	audio::-webkit-media-controls-panel {
+  background-color: #000000; 
+}
+
+audio::-webkit-media-controls-mute-button,
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-timeline-container,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-volume-slider-container,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-seek-back-button,
+audio::-webkit-media-controls-seek-forward-button,
+audio::-webkit-media-controls-fullscreen-button,
+audio::-webkit-media-controls-rewind-button,
+audio::-webkit-media-controls-return-to-realtime-button,
+audio::-webkit-media-controls-toggle-closed-captions-button
+	{
+    filter: invert(100%);
+  }
+ 
+
+  
+  
       body {
         margin: 0;
         padding: 0;
@@ -85,7 +110,32 @@ button{
     outline:0;
     font-size:24px
 }
-   
+
+
+    .image-item {
+
+            perspective: 1000px;
+           
+          
+            
+        }
+        .image-item img {
+           
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+        .image-item:hover img {
+            transform: rotateY(180deg);
+        }
+        .image-item img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     </style>
   </head>
   <body>
@@ -97,7 +147,7 @@ button{
       <li class="image-item">
         <img src="n01.jpg" alt="Image 1">
         <p>Hiro Zimahai - Asian Two<br><i>IDM, drum and bass, pinkpowder techno</i></p>
-        <audio class="audio-player" controls>
+        <audio class="audio-player" controls class="audio-1">
           <source src="n01.mp3" type="audio/mpeg">
         </audio>
       </li>
@@ -105,7 +155,7 @@ button{
       <li class="image-item">
         <img src="n02.jpg" alt="Image 2">
         <p>Радиорыцарь - Заседание<br><i>live drum and bass, electronic prayer</i></p>
-        <audio class="audio-player" controls>
+        <audio class="audio-player" controls class="audio-1" >
           <source src="n02.mp3" type="audio/mpeg">
         </audio>
       </li>
@@ -113,7 +163,7 @@ button{
       <li class="image-item">
         <img src="n03.jpg" alt="Image 3">
         <p>Румяные глаза - Твоя любовь сильнее<br><i>vaporwave, extrapluswave, sythonfeel pop</i></p>
-        <audio class="audio-player" controls>
+        <audio class="audio-player" controls class="audio-1">
           <source src="n03.mp3" type="audio/mpeg">
         </audio>
       </li>
@@ -121,7 +171,7 @@ button{
       <li class="image-item">
         <img src="n04.jpg" alt="Image 4">
         <p>Румяные глаза - Зубы из пряжи<br><i>breakcore, psychodelic chloarewave</i></p>
-        <audio class="audio-player" controls>
+        <audio class="audio-player" controls class="audio-1">
           <source src="n04.mp3" type="audio/mpeg">
         </audio>
       </li>
@@ -129,7 +179,7 @@ button{
       <li class="image-item">
         <img src="n05.jpg" alt="Image 5">
         <p>Михаил Седой и группа "Добрый вечер" - Моё Подмосковье<br><i>dark ambient, noise pop, metajazz</i></p>
-        <audio class="audio-player" controls>
+        <audio class="audio-player" controls class="audio-1">
           <source src="n05.mp3" type="audio/mpeg">
         </audio>
       </li>
@@ -137,7 +187,7 @@ button{
       <li class="image-item">
         <img src="n06.jpg" alt="Image 6">
         <p>sissytrainers - MK-kultura<br><i>power noise, bleeding rock, noise hardcore</i></p>
-        <audio class="audio-player" controls>
+        <audio class="audio-player" controls class="audio-1">
           <source src="n06.mp3" type="audio/mpeg">
         </audio>
       </li>
@@ -145,14 +195,14 @@ button{
       <li class="image-item">
         <img src="n07.jpg" alt="Image 7">
 <p>Блокада Ленинграда - Лосиный остров<br><i>punk rock, alternative trashcore, noise rock</i></p>
-<audio class="audio-player" controls>
+<audio class="audio-player" controls class="audio-1">
 <source src="n07.mp3" type="audio/mpeg">
 </audio>
 </li>
 <li class="image-item">
     <img src="n08.jpg" alt="Image 8">
     <p>MLK fancy video jr. - Chinese Pentagony 1975<br><i>electronic dub, siberian reggae</i></p>
-    <audio class="audio-player" controls>
+    <audio class="audio-player" controls class="audio-1">
       <source src="n08.mp3" type="audio/mpeg">
     </audio>
   </li>
@@ -160,7 +210,7 @@ button{
   <li class="image-item">
     <img src="n09.jpg" alt="Image 9">
     <p>Михаил Седой и группа "Добрый вечер" - Дождь в Ленинграде<br><i>musique concrète, dark ambient, metajazz</i></p>
-    <audio class="audio-player" controls>
+    <audio class="audio-player" controls class="audio-1">
       <source src="n09.mp3" type="audio/mpeg">
     </audio>
   </li>
@@ -169,7 +219,7 @@ button{
     <img src="n10.jpg" alt="Image 10">
     <p>Румяные глаза - Мандариновые сны
 	<br><i>kosmische musik, berlin school, unity ambient</i></p>
-    <audio class="audio-player" controls>
+    <audio class="audio-player" controls class="audio-1">
       <source src="n10.mp3" type="audio/mpeg">
     </audio>
   </li>

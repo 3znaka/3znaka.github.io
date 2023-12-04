@@ -129,7 +129,7 @@ document.write(r_text[i]); </script>
 </div></a>
 
 
-
+<div class="message">привет :3<br>я тебя люблю</div>
     
 <div class="image-container">
   <img src="same.gif" alt="куда вы" id="center-image">
@@ -154,6 +154,12 @@ document.write(r_text[i]); </script>
 </div>-->
 
 <style>
+
+  .message {
+            position: absolute;
+            bottom: 50%;
+            font-size: 24px;
+        }
 
 body{
     background-color:#fff;
@@ -433,6 +439,9 @@ input[type=range]::-moz-range-track{
  
 
  
+     
+ 
+ 
 </style>
 
 
@@ -535,7 +544,51 @@ function updateVolume(volume) {
 
 
 -->
+ <script>
+ 
+        const container = document.querySelector('.image-container');
 
+        let isDragging = false;
+        let startX;
+        let startY;
+        let translateX = 0;
+        let translateY = 0;
+
+
+
+        container.addEventListener('mousedown', startDragging);
+        container.addEventListener('mousemove', dragElement);
+        container.addEventListener('mouseup', stopDragging);
+        container.addEventListener('mouseleave', stopDragging);
+
+        function startDragging(event) {
+            isDragging = true;
+            startX = event.clientX;
+            startY = event.clientY;
+        }
+
+        function dragElement(event) {
+            if (!isDragging) return;
+            event.preventDefault();
+
+            const dx = event.clientX - startX;
+            const dy = event.clientY - startY;
+
+            translateX += dx;
+            translateY += dy;
+
+            container.style.transform = `translate(${translateX}px, ${translateY}px)`;
+            
+            startX = event.clientX;
+            startY = event.clientY;
+        }
+
+        function stopDragging() {
+            isDragging = false;
+        }
+		
+		
+    </script>
 
 
 </body>
