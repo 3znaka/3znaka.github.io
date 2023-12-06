@@ -5,6 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Музыкальная страница</title>
+	 <script>
+    function base64ToHex(base64Str) {
+      // Decoding Base64 to bytes
+      const bytes = atob(base64Str);
+      
+      // Converting bytes to hexadecimal string
+      let hexStr = '';
+      for (let i = 0; i < bytes.length; i++) {
+        const hex = bytes.charCodeAt(i).toString(16);
+        hexStr += hex.length === 1 ? '0' + hex : hex;
+      }
+      
+      return hexStr;
+    }
+
+    function convertBase64ToHex() {
+      const base64Input = document.getElementById('base64Input').value;
+      const hexOutput = document.getElementById('hexOutput');
+      
+      if (base64Input === '') {
+        hexOutput.value = 'Please enter a Base64 string.';
+        return;
+      }
+      
+      const hexStr = base64ToHex(base64Input);
+      hexOutput.value = hexStr;
+    }
+  </script>
 </head>
 
 <body>
@@ -17,10 +45,18 @@
     <br><br>
     <label for="musicInput">Enter Music Notes:</label>
     <input type="text" id="musicInput" placeholder="e.g., 123abc">
+   
+    
     <br><br>
-    <input type="file" id="imageInput">
-    <button onclick="convertImageToText()">Convert Image</button>
-    <br><br>
+	  <h1>Base64 to Hex Encoder</h1>
+  <label for="base64Input">Enter Base64 string:</label>
+  <input type="text" id="base64Input" placeholder="Enter Base64 string" />
+  <button onclick="convertBase64ToHex()">Convert</button>
+  <br />
+  <label for="hexOutput">Hexadecimal output:</label>
+  <textarea id="hexOutput" rows="4" cols="50" readonly></textarea>
+	
+	
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.0.0"></script>
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
