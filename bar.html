@@ -97,6 +97,57 @@
 <font size="3">сок лимона 1 ст.л, 3 кубика льда</font><br>
 <br>
 
+
+
+
+<script>
+// Создаем контекст звукового воспроизведения
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+
+// Определяем функцию для воспроизведения одной ноты
+function playNote(note) {
+  const frequencyMap = {
+    C: 261.63,
+    'C#': 277.18,
+    D: 293.66,
+    'D#': 311.13,
+    E: 329.63,
+    F: 349.23,
+    'F#': 369.99,
+    G: 392.00,
+    'G#': 415.30,
+    A: 440.00,
+    'A#': 466.16,
+    B: 493.88
+  };
+
+  const duration = 0.125; // Длительность в секундах (1/8)
+  const oscillator = audioContext.createOscillator();
+  oscillator.frequency.value = frequencyMap[note];
+  oscillator.connect(audioContext.destination);
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + duration);
+}
+
+// Проходимся по каждому символу в переменной MUSIC и воспроизводим соответствующую ноту или паузу
+for (let i = 0; i < MUSIC.length; i++) {
+  const char = MUSIC.charAt(i);
+
+  if (char !== 'f') {
+    const note = char <= 'e' ? char.toUpperCase() : char;
+    playNote(note);
+  } else {
+    // Воспроизводим паузу
+    const duration = 0.125; // Длительность в секундах (1/8)
+    audioContext.currentTime += duration;
+  }
+}
+const MUSIC = "0123456789abcdef";
+playMusic(MUSIC);
+
+
+</script>
 </p>
 
 <br><br>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальная страница</title>
+</head>
+
+<body>
+    <button onclick="startMusic()">Start Music</button>
+    <button onclick="stopMusic()">Stop Music</button>
+    <br><br>
+    <label for="tempoSlider">Adjust Tempo:</label>
+    <input type="range" min="50" max="200" value="100" class="tempo-slider" id="tempoSlider">
+    <span id="currentTempo">100 BPM</span>
+    <br><br>
+    <label for="musicInput">Enter Music Notes:</label>
+    <input type="text" id="musicInput" placeholder="e.g., 123abc">
+    <br><br>
+    <input type="file" id="imageInput">
+    <button onclick="convertImageToText()">Convert Image</button>
+    <br><br>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.0.0"></script>
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let buffer, source;
+        let tempo = 100;
+        let isPlaying = false;
+
+        function loadNoteBuffer(note, duration) {
+            const frequencies = {
+                '0': 261.63,
+                '1': 277.18,
+                '2': 293.66,
+                '3': 311.13,
+                '4': 329.63,
+                '5': 349.23,
+                '6': 369.99,
+                '7': 392.00,
+                '8': 415.30,
+                '9': 440.00,
+                'a': 466.16,
+                'b': 493.88,
+                'c': 523.25,
+                'd': 0,
+                'e': 0,
+                'f': 0
+            };
+
+            const sampleRate = audioContext.sampleRate;
+            const length = Math.ceil(sampleRate * duration);
+            const buffer = audioContext.createBuffer(1, length, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            for (let i = 0; i < length; i++) {
+                const t = i / sampleRate;
+                data[i] = frequencies[note] * Math.sin(2 * Math.PI * frequencies[note] * t);
+            }
+
+            return buffer;
+        }
+
+        function playNote(note, duration) {
+            buffer = loadNoteBuffer(note, duration);
+            source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+            source.start();
+        }
+
+        function playMusic(index, music) {
+            if (isPlaying && index < music.length) {
+                let note = music[index];
+                let duration = 0.125 * (100 / tempo);
+
+                // Check for consecutive identical notes and extend duration
+                while (index + 1 < music.length && music[index + 1] === note) {
+                    duration += 0.125 * (100 / tempo);
+                    index++;
+                }
+
+                playNote(note, duration);
+                setTimeout(() => playMusic(index + 1, music), duration * 1000);
+            } else if (isPlaying) {
+                // Continue playing in a loop
+                setTimeout(() => playMusic(0, music), 125 * (100 / tempo));
+            }
+        }
+
+        function startMusic() {
+            const musicInput = document.getElementById('musicInput').value;
+            if (!isPlaying && musicInput) {
+                isPlaying = true;
+                playMusic(0, musicInput);
+            }
+        }
+
+        function stopMusic() {
+            isPlaying = false;
+            if (source) {
+                source.stop(0);
+                source.disconnect();
+            }
+        }
+
+        const tempoSlider = document.getElementById('tempoSlider');
+        const currentTempo = document.getElementById('currentTempo');
+
+        tempoSlider.addEventListener('input', function () {
+            tempo = parseInt(tempoSlider.value, 10);
+            currentTempo.textContent = tempo + " BPM";
+        });
+
+        async function convertImageToText() {
+            const imageInput = document.getElementById('imageInput');
+            const file = imageInput.files[0];
+
+            const { TesseractWorker } = Tesseract;
+            const worker = new TesseractWorker();
+
+            worker
+                .recognize(file)
+                .progress((message) => {
+                    console.log('Progress:', message);
+                })
+                .then(({ text }) => {
+                    const cleanedText = text.replace(/[^0-9a-f]/g, ''); // remove non-music characters
+                    document.getElementById('musicInput').value = cleanedText;
+                })
+                .finally(() => {
+                    worker.terminate();
+                });
+        }
+    </script>
+</body>
+
+</html>
