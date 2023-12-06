@@ -6,32 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Музыкальная страница</title>
 	 <script>
-    function base64ToHex(base64Str) {
-      // Decoding Base64 to bytes
-      const bytes = atob(base64Str);
-      
-      // Converting bytes to hexadecimal string
-      let hexStr = '';
-      for (let i = 0; i < bytes.length; i++) {
-        const hex = bytes.charCodeAt(i).toString(16);
-        hexStr += hex.length === 1 ? '0' + hex : hex;
-      }
-      
-      return hexStr;
-    }
+       function base64ToBinary() {
+            var base64Input = document.getElementById("base64Input").value;
+            var binaryOutput = atob(base64Input)
+                .split('')
+                .map(function (char) {
+                    return char.charCodeAt(0).toString(2).padStart(8, '0');
+                })
+                .join('');
 
-    function convertBase64ToHex() {
-      const base64Input = document.getElementById('base64Input').value;
-      const hexOutput = document.getElementById('hexOutput');
-      
-      if (base64Input === '') {
-        hexOutput.value = 'Please enter a Base64 string.';
-        return;
-      }
-      
-      const hexStr = base64ToHex(base64Input);
-      hexOutput.value = hexStr;
-    }
+            document.getElementById("binaryOutput").value = binaryOutput;
+        }
   </script>
 </head>
 
@@ -48,13 +33,13 @@
    
     
     <br><br>
-	  <h1>Base64 to Hex Encoder</h1>
-  <label for="base64Input">Enter Base64 string:</label>
-  <input type="text" id="base64Input" placeholder="Enter Base64 string" />
-  <button onclick="convertBase64ToHex()">Convert</button>
-  <br />
-  <label for="hexOutput">Hexadecimal output:</label>
-  <textarea id="hexOutput" rows="4" cols="50" readonly></textarea>
+	   <h1>Base64 to Binary Converter</h1>
+    <label for="base64Input">Base64 Input:</label>
+    <input type="text" id="base64Input" placeholder="Enter Base64 string" />
+    <button onclick="base64ToBinary()">Convert</button>
+    <br />
+    <label for="binaryOutput">Binary Output:</label>
+    <input type="text" id="binaryOutput" readonly />
 	
 	
     
