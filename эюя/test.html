@@ -57,7 +57,7 @@
   <textarea id="hexOutput" rows="4" cols="50" readonly></textarea>
 	
 	
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.0.0"></script>
+    
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         let buffer, source;
@@ -66,22 +66,38 @@
 
         function loadNoteBuffer(note, duration) {
             const frequencies = {
-                '0': 261.63,
-                '1': 277.18,
-                '2': 293.66,
-                '3': 311.13,
-                '4': 329.63,
-                '5': 349.23,
-                '6': 369.99,
-                '7': 392.00,
-                '8': 415.30,
-                '9': 440.00,
-                'a': 466.16,
-                'b': 493.88,
-                'c': 523.25,
-                'd': 554.37,
-                'e': 587.33,
-                'f': 0
+                '00000': 130.81,
+'00001': 138.59,
+'00010': 146.83,
+'00011': 155.56,
+'00100': 164.81,
+'00101': 174.61,
+'00110': 185.00,
+'00111': 196.00,
+'01000': 207.65,
+'01001': 220.00,
+'01010': 233.08,
+'01011': 246.94,
+'01100': 261.63,
+'01101': 277.18,
+'01110': 293.66,
+'01111': 311.13,
+'10000': 329.63,
+'10001': 349.23,
+'10010': 369.99,
+'10011': 392.00,
+'10100': 415.30,
+'10101': 440.00,
+'10110': 466.16,
+'10111': 493.88,
+'11000': 523.25,
+'11001': 554.37,
+'11010': 587.33,
+'11011': 622.25,
+'11100': 659.25,
+'11101': 698.46,
+'11110': 739.99,
+'11111': 0
             };
 
             const sampleRate = audioContext.sampleRate;
@@ -124,13 +140,30 @@
             }
         }
 
-        function startMusic() {
-            const musicInput = document.getElementById('musicInput').value;
-            if (!isPlaying && musicInput) {
-                isPlaying = true;
-                playMusic(0, musicInput);
-            }
-        }
+function splitTextIntoGroups(text, groupSize) {
+    const groups = [];
+    let i = 0;
+
+    while (i < text.length) {
+        const group = text.substr(i, groupSize);
+        groups.push(group);
+        i += groupSize;
+    }
+
+    return groups;
+}
+
+function startMusic() {
+    const musicInput = document.getElementById('musicInput').value;
+    if (!isPlaying && musicInput) {
+        const musicGroups = splitTextIntoGroups(musicInput, 5); // Разделение текста по пять символов
+        isPlaying = true;
+        playMusic(0, musicGroups);
+    }
+}
+
+
+       
 
         function stopMusic() {
             isPlaying = false;
@@ -148,26 +181,7 @@
             currentTempo.textContent = tempo + " BPM";
         });
 
-        async function convertImageToText() {
-            const imageInput = document.getElementById('imageInput');
-            const file = imageInput.files[0];
-
-            const { TesseractWorker } = Tesseract;
-            const worker = new TesseractWorker();
-
-            worker
-                .recognize(file)
-                .progress((message) => {
-                    console.log('Progress:', message);
-                })
-                .then(({ text }) => {
-                    const cleanedText = text.replace(/[^0-9a-f]/g, ''); // remove non-music characters
-                    document.getElementById('musicInput').value = cleanedText;
-                })
-                .finally(() => {
-                    worker.terminate();
-                });
-        }
+      
     </script>
 </body>
 
