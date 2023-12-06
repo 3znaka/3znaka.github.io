@@ -17,6 +17,44 @@
 
             document.getElementById("binaryOutput").value = binaryOutput;
         }
+		
+		function convertBinaryToBase64() {
+            const binaryInput = document.getElementById('binaryInput').value;
+            const binary = binaryInput.replace(/\s/g, ''); // Remove white spaces from input
+
+            if (!/^[01]+$/.test(binary)) {
+                alert('Invalid binary input! Enter a sequence of 0s and 1s only.');
+                return;
+            }
+
+            // Pad binary with leading zeros to make it a multiple of 6 bits
+            const paddedBinary = binary.padEnd(Math.ceil(binary.length / 6) * 6, '0');
+
+            let base64Output = '';
+            for (let i = 0; i < paddedBinary.length; i += 6) {
+                const binaryChunk = paddedBinary.substr(i, 6);
+                const decimalValue = parseInt(binaryChunk, 2); // Convert binary to decimal
+                const base64Char = getBase64Character(decimalValue);
+                base64Output += base64Char;
+            }
+
+            document.getElementById('base64Output').textContent = base64Output;
+        }
+
+        function getBase64Character(decimal) {
+            if (decimal >= 0 && decimal <= 25) {
+                return String.fromCharCode(decimal + 65); // A-Z
+            } else if (decimal >= 26 && decimal <= 51) {
+                return String.fromCharCode(decimal + 71); // a-z
+            } else if (decimal >= 52 && decimal <= 61) {
+                return String.fromCharCode(decimal - 4); // 0-9
+            } else if (decimal === 62) {
+                return '+';
+            } else if (decimal === 63) {
+                return '/';
+            }
+        }
+		
   </script>
 </head>
 
@@ -25,7 +63,7 @@
     <button onclick="stopMusic()">Stop Music</button>
     <br><br>
     <label for="tempoSlider">Adjust Tempo:</label>
-    <input type="range" min="50" max="200" value="100" class="tempo-slider" id="tempoSlider">
+    <input type="range" min="20" max="200" value="100" class="tempo-slider" id="tempoSlider">
     <span id="currentTempo">100 BPM</span>
     <br><br>
     <label for="musicInput">Enter Music Notes:</label>
@@ -41,7 +79,12 @@
     <label for="binaryOutput">Binary Output:</label>
     <input type="text" id="binaryOutput" readonly />
 	
-	
+	  <h1>Binary to Base64 Converter</h1>
+    <input type="text" id="binaryInput" placeholder="Enter binary (e.g., 010101000100101)">
+    <br><br>
+    <button onclick="convertBinaryToBase64()">Convert</button>
+    <br><br>
+    <textarea id="base64Output" rows="5" cols="50" readonly></textarea>
     
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -81,21 +124,51 @@
 '11011': 622.25,
 '11100': 659.25,
 '11101': 698.46,
-'11110': 739.99,
+'11110': null,
 '11111': 0
             };
 
             const sampleRate = audioContext.sampleRate;
-            const length = Math.ceil(sampleRate * duration);
-            const buffer = audioContext.createBuffer(1, length, sampleRate);
-            const data = buffer.getChannelData(0);
+    const length = Math.ceil(sampleRate * duration);
+    const buffer = audioContext.createBuffer(1, length, sampleRate);
+    const data = buffer.getChannelData(0);
 
-            for (let i = 0; i < length; i++) {
-                const t = i / sampleRate;
-                data[i] = frequencies[note] * Math.sin(2 * Math.PI * frequencies[note] * t);
-            }
+ if (frequencies[note] === null) {
+        // Generate white noise samples
+        for (let i = 0; i < length; i++) {
+            data[i] = (Math.random() * 2 - 1)*0.2; // Generate random value between -1 and 1
+        }
+    } else {
 
-            return buffer;
+
+    const attackTime = 0.01; // Time for the volume to reach its maximum amplitude (in seconds)
+    const releaseTime = 0.02; // Time for the volume to reach zero (in seconds)
+    const attackSamples = Math.ceil(sampleRate * attackTime);
+    const releaseSamples = Math.ceil(sampleRate * releaseTime);
+    const sustainSamples = length - attackSamples - releaseSamples;
+
+    // Attack phase
+    for (let i = 0; i < attackSamples; i++) {
+        const envelopeValue = i / attackSamples;
+        const t = i / sampleRate;
+        data[i] = (frequencies[note] * Math.sin(2 * Math.PI * frequencies[note] * t) * envelopeValue) * 0.008;
+    }
+
+    // Sustain phase
+    for (let i = attackSamples; i < attackSamples + sustainSamples; i++) {
+        const t = i / sampleRate;
+        data[i] = (frequencies[note] * Math.sin(2 * Math.PI * frequencies[note] * t)) * 0.008;
+    }
+
+    // Release phase
+    for (let i = attackSamples + sustainSamples; i < length; i++) {
+        const envelopeValue = 1 - ((i - attackSamples - sustainSamples) / releaseSamples);
+        const t = i / sampleRate;
+        data[i] = (frequencies[note] * Math.sin(2 * Math.PI * frequencies[note] * t) * envelopeValue) * 0.008;
+    }
+}
+    return buffer;
+
         }
 
         function playNote(note, duration) {
