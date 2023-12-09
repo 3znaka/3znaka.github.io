@@ -118,6 +118,29 @@ input{
             document.getElementById("binaryOutput").value = binaryOutput;
         }
 		
+		function base64ToBinary2(inputValue) {
+    var binaryOutput2;
+    try {
+        binaryOutput2 = atob(inputValue)
+            .split('')
+            .map(function (char) {
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            })
+            .join('');
+    } catch (error) {
+        console.error("Ошибка при декодировании base64: " + error.message);
+        // Если возникла ошибка при декодировании base64, используем ASCII кодировку
+        binaryOutput2 = inputValue
+            .split('')
+            .map(function (char) {
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            })
+            .join('');
+    }
+    document.getElementById('musicInput').value = binaryOutput2;
+  
+}
+		
 		function convertBinaryToBase64() {
             const binaryInput = document.getElementById('binaryInput').value;
             const binary = binaryInput.replace(/\s/g, ''); // Remove white spaces from input
@@ -161,7 +184,7 @@ input{
 <body><center>
 <img src="3dlogo.gif"><br>
 
-    <input type="text" id="musicInput" placeholder="011001000010011"><br><br>
+    <input type="text" id="musicInput"  placeholder="011001000010011"><br><br>
     <input type="range" min="20" max="200" value="100" class="tempo-slider" id="tempoSlider"><br>
     <h1 id="currentTempo">100 bpm</h1><br><br>
     <button onclick="startMusic()" class="button">играть</button>
@@ -170,7 +193,23 @@ input{
     
     
     
-	
+	<div>
+        <a class="button" id="startButton">Start</a>
+        <a class="button" id="resetButton">Reset</a>
+      </div>
+
+      <div>
+        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+      </div>
+
+      <div id="sourceSelectPanel" style="display:none">
+        <label for="sourceSelect">Change video source:</label>
+        <select id="sourceSelect" style="max-width:400px">
+        </select>
+      </div>
+
+      <label>Result:</label>
+      <pre><code id="result"></code></pre>
    
     
     <br><br>
@@ -189,6 +228,62 @@ input{
     <br><br>
     <textarea id="base64Output" rows="5" cols="40" readonly></textarea>
     </center>
+	<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function () {
+      let selectedDeviceId;
+      const codeReader = new ZXing.BrowserMultiFormatReader()
+      console.log('ZXing code reader initialized')
+      codeReader.listVideoInputDevices()
+        .then((videoInputDevices) => {
+          const sourceSelect = document.getElementById('sourceSelect')
+          selectedDeviceId = videoInputDevices[0].deviceId
+          if (videoInputDevices.length >= 1) {
+            videoInputDevices.forEach((element) => {
+              const sourceOption = document.createElement('option')
+              sourceOption.text = element.label
+              sourceOption.value = element.deviceId
+              sourceSelect.appendChild(sourceOption)
+            })
+
+            sourceSelect.onchange = () => {
+              selectedDeviceId = sourceSelect.value;
+            };
+
+            const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+            sourceSelectPanel.style.display = 'block'
+          }
+
+          document.getElementById('startButton').addEventListener('click', () => {
+            codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+              if (result) {
+                console.log(result)
+                document.getElementById('result').textContent = result.text;
+				var restext = result.text;
+				base64ToBinary2(restext);
+				
+
+              }
+              if (err && !(err instanceof ZXing.NotFoundException)) {
+                console.error(err)
+                document.getElementById('result').textContent = err
+              }
+            })
+            console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+          })
+
+          document.getElementById('resetButton').addEventListener('click', () => {
+            codeReader.reset()
+            document.getElementById('result').textContent = '';
+            console.log('Reset.')
+          })
+
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    })
+  </script>
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         let buffer, source;
