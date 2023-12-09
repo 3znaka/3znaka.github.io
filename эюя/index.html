@@ -114,6 +114,7 @@ input{
     }
      
  
+     
  
 </style>
 	 <script>
@@ -222,6 +223,7 @@ input{
 
 	<div id="begin123">
         <a class="button" id="startButton">включить камеру</a>
+		<a class="button" id="resetButton">↺</a>
       </div>
 	   <div id="sourceSelectPanel" style="display:none">
         <label for="sourceSelect">камера </label>
@@ -273,6 +275,7 @@ input{
 
           document.getElementById('startButton').addEventListener('click', () => {
             codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
+			 
               if (result) {
                 console.log(result)
                 document.getElementById('result').textContent = result.text;
