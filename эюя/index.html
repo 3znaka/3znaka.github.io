@@ -119,26 +119,46 @@ input{
         }
 		
 		function base64ToBinary2(inputValue) {
+    var bodocipher = {
+        'A': '00001', 'B': '00010', 'C': '00011', 'D': '00100', 'E': '00101',
+'F': '00110', 'G': '00111', 'H': '01000', 'I': '01001', 'J': '01010',
+'K': '01011', 'L': '01100', 'M': '01101', 'N': '01110', 'O': '01111',
+'P': '10000', 'Q': '10001', 'R': '10010', 'S': '10011', 'T': '10100',
+'U': '10101', 'V': '10110', 'W': '10111', 'X': '11000', 'Y': '11001',
+'Z': '11010', '0': '11011', '1': '11100', '2': '11101', '3': '11110',
+'4': '11111', '5': '00001', '6': '00010', '7': '00011', '8': '00100',
+'9': '00101', '.': '00110', ',': '00111', ':': '01000', '?': '01001',
+'\'': '01010', '-': '01011', '/': '01100', '(': '01101', ')': '01110',
+'=': '01111', '+': '10000', '*': '10001', '@': '10010', '\n': '10011',
+' ': '10100', 'a': '00001', 'b': '00010', 'c': '00011', 'd': '00100', 'e': '00101',
+'f': '00110', 'g': '00111', 'h': '01000', 'i': '01001', 'j': '01010',
+'k': '01011', 'l': '01100', 'm': '01101', 'n': '01110', 'o': '01111',
+'p': '10000', 'q': '10001', 'r': '10010', 's': '10011', 't': '10100',
+'u': '10101', 'v': '10110', 'w': '10111', 'x': '11000', 'y': '11001',
+'z': '11010'
+    };
+
     var binaryOutput2;
     try {
         binaryOutput2 = atob(inputValue)
             .split('')
-            .map(function (char) {
-                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            .map(function(char) {
+                var binaryChar = char.charCodeAt(0).toString(2).padStart(8, '0');
+                return bodocipher[char] || binaryChar;
             })
             .join('');
     } catch (error) {
         console.error("Ошибка при декодировании base64: " + error.message);
-        // Если возникла ошибка при декодировании base64, используем ASCII кодировку
+        // Если возникла ошибка при декодировании base64, используем шифр Бодо
         binaryOutput2 = inputValue
             .split('')
-            .map(function (char) {
-                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            .map(function(char) {
+                var binaryChar = char.charCodeAt(0).toString(2).padStart(8, '0');
+                return bodocipher[char] || binaryChar;
             })
             .join('');
     }
     document.getElementById('musicInput').value = binaryOutput2;
-  
 }
 		
 		function convertBinaryToBase64() {
