@@ -37,7 +37,6 @@
     text-align:center;
     text-decoration:none
 }
-
 .button:active,.button:hover{
     background-color:#000;
     color:#fff
@@ -216,33 +215,21 @@ input{
 <img src="3dlogo.gif"><br>
 
     
-      <div>
-        <video id="video"  height="100%" style="border:2px solid #000; max-width: 100%;"></video>
-      </div>
-
-	<div id="begin123">
-        <a class="button" id="startButton">включить камеру</a>
-      </div>
-	   <div id="sourceSelectPanel" style="display:none">
-        <label for="sourceSelect">камера </label>
-        <select id="sourceSelect">
-        </select>
-      </div>
-	  <div id="afton">
-	  <br>
-	  <h3 id="result"></h3>
-   
-	  <input type="text" id="musicInput"  placeholder="011001000010011" readonly><br>
-    <button onclick="startMusic()" class="button">играть</button>
-    <button onclick="stopMusic()" class="button">стоп</button>
-<br><br>
-    <input type="range" min="20" max="200" value="100" class="tempo-slider" id="tempoSlider"><br>
+     <br>
+	   <h1>a1 ➔ 01101011</h1>
+    
+    <input type="text" id="base64Input" placeholder="a1" />
+    <button onclick="base64ToBinary()" class="button">➔</button>
+    <br><br>
+    <textarea id="binaryOutput" rows="5" cols="40" readonly></textarea>
     
 	
-	</div>
-	
-	
-	
+	  <h1>01101011 ➔ a1</h1>
+    <input type="text" id="binaryInput" placeholder="01101011">
+  
+    <button onclick="convertBinaryToBase64()" class="button">➔</button>
+    <br><br>
+    <textarea id="base64Output" rows="5" cols="40" readonly></textarea>
     </center>
 	<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
   <script type="text/javascript">
