@@ -130,6 +130,8 @@ input{
             document.getElementById("binaryOutput").value = binaryOutput;
         }
 		
+	
+	
 		function base64ToBinary2(inputValue) {
     var bodocipher = {
         'A': '00001', 'B': '00010', 'C': '00011', 'D': '00100', 'E': '00101',
@@ -154,10 +156,9 @@ input{
     try {
         binaryOutput2 = atob(inputValue)
             .split('')
-            .map(function(char) {
-                var binaryChar = char.charCodeAt(0).toString(2).padStart(8, '0');
-                return bodocipher[char] || binaryChar;
-            })
+            .map(function (char) {
+                    return char.charCodeAt(0).toString(2).padStart(8, '0');
+                })
             .join('');
     } catch (error) {
         console.error("Ошибка при декодировании base64: " + error.message);
@@ -172,6 +173,9 @@ input{
     }
     document.getElementById('musicInput').value = binaryOutput2;
 }
+	
+	
+	
 		
 		function convertBinaryToBase64() {
             const binaryInput = document.getElementById('binaryInput').value;
@@ -289,8 +293,8 @@ input{
 				document.getElementById('begin123').setAttribute("style","height:0px");
 				document.getElementById('sourceSelectPanel').setAttribute("style","height:0px");
 document.getElementById('sourceSelectPanel').style.visibility = 'hidden';
-document.getElementById('musicInput').setAttribute("style","height:0px");
-document.getElementById('musicInput').style.visibility = 'hidden';
+// document.getElementById('musicInput').setAttribute("style","height:0px");
+// document.getElementById('musicInput').style.visibility = 'hidden';
 
               }
               if (err && !(err instanceof ZXing.NotFoundException)) {
